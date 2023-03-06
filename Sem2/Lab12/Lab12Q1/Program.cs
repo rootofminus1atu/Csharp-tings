@@ -69,18 +69,17 @@
             return false;
         }
 
-
+        // why tf static?
         public static void Withdraw(BankAccount owner, double amount)
         {
-            if (BankAccount.CheckPIN(owner))
-            {
-                if (amount > owner.balance)
-                    Console.WriteLine("Insufficient funds");
-                else
-                    owner.balance -= amount;
-            }
+            if (!BankAccount.CheckPIN(owner))
+                return;
+
+            // actual content
+            if (amount > owner.balance)
+                Console.WriteLine("Insufficient funds");
             else
-                Console.WriteLine("\nno");
+                owner.balance -= amount;
         }
 
         public void Withdraw(double amount)
