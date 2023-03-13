@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace Both
+namespace Improved
 {
     internal class Program
     {
@@ -20,10 +19,45 @@ namespace Both
         {
             List<Student> students = new List<Student>() { };
 
-            Console.WriteLine(DetermineGradeV3(45));
+            while (true)
+            {
+                string num = "";
+                while (!IsStudentNum(num))
+                {
+                    Console.Write($"Input student number: ");
+                    num = Console.ReadLine();
+                }
+
+                string mark = "";
+                while (!IsDoubleTo100(mark))
+                {
+                    Console.Write($"Input student mark: ");
+                    mark = Console.ReadLine();
+                }
+
+                char grade = DetermineGradeV3(double.Parse(mark));
+
+
+                Student currentStudent = new Student(num, double.Parse(mark), grade);
+                students.Add(currentStudent);
+
+
+                Console.WriteLine($"\nCongratulations {currentStudent.number}! Your grade is: {currentStudent.grade}\n");
+
+
+                Console.Write($"Exit? (y/n)");
+                string exit = Console.ReadLine();
+
+                if (exit == "y")
+                    break;
+            }
+
+            Console.WriteLine($"Total F grades: {students.CountGrades('F')}");
+
+            Console.WriteLine("end");
         }
 
-        public static char DetermineGradeV3(double mark)
+        public static char DetermineGradeV2(double mark)
         {
             char grade = mark switch
             {
@@ -39,7 +73,7 @@ namespace Both
             return grade;
         }
 
-        public static char DetermineGradeV2(double mark)
+        public static char DetermineGradeV3(double mark)
         {
             char grade = 'F';  // default
 
@@ -47,7 +81,7 @@ namespace Both
             {
                 grade = pair.Value;
 
-                if (mark < pair.Key)
+                if (mark <= pair.Key)
                     break;
             }
 
@@ -94,4 +128,40 @@ namespace Both
             return $"Student number: {this.number}\nMark: {this.mark}\nGrade: {this.grade}";
         }
     }
+
+    public static class StudentExtensions
+    {
+        public static int CountGrades(this List<Student> students, char target)
+        {
+            int total = 0;
+
+            foreach (Student student in students)
+                if (student.grade == target)
+                    total++;
+
+            return total;
+        }
+    }
+    /*
+    public class StudentManager
+    {
+        private List<Student> students;
+
+        public StudentManager()
+        {
+            students = new List<Student>();
+        }
+
+        public int CountGrades(char target)
+        {
+            int total = 0;
+
+            foreach (Student student in this.students)
+                if (student.grade == target)
+                    total++;
+
+            return total;
+        }
+    }
+    */
 }
