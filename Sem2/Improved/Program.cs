@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace Improved
 {
@@ -18,6 +19,10 @@ namespace Improved
         static void Main(string[] args)
         {
             List<Student> students = new List<Student>() { };
+
+
+
+            // main loop
 
             while (true)
             {
@@ -52,11 +57,29 @@ namespace Improved
                     break;
             }
 
-            Console.WriteLine($"Total F grades: {students.CountGrades('F')}");
 
-            Console.WriteLine("end");
+
+            // ugly display below
+
+            Console.WriteLine(StringMult("=", 30));
+
+            foreach (char grade in markToGrade.Values)
+                Console.WriteLine($"Total {grade} grades: {students.CountGrades(grade)}");
+
+            Console.WriteLine(StringMult("=", 30));
+
+            foreach (char grade in markToGrade.Values)
+                Console.WriteLine($"Average mark for {grade}: {students.AverageMark(grade)}");
+
+            Console.WriteLine(StringMult("=", 30));
+
+            Console.WriteLine($"Total number of students: {students.Count}");
+            Console.WriteLine($"Overall average mark: {students.OverallAverageMark()}\n");
+
+            Console.WriteLine(StringMult("=", 30));
         }
 
+        // calculations
         public static char DetermineGradeV2(double mark)
         {
             char grade = mark switch
@@ -67,7 +90,7 @@ namespace Improved
                 double m when m < 70 => 'C',
                 double m when m < 80 => 'B',
                 double m when m <= 100 => 'A',
-                _ => 'F'  // default case, is an error somehow occurs
+                _ => 'F'  // default case, if an error somehow occurs
             };
 
             return grade;
@@ -88,25 +111,39 @@ namespace Improved
             return grade;
         }
 
+
+        // utility
+        public static string StringMult(string str, int num)
+        {
+            string start = "";
+
+            for (int i = 0; i < num; i++)
+                start += str;
+
+            return start;
+        }
+
+
+        // validation
         public static bool IsStudentNum(string input)
         {
             Regex re = new Regex(@"^[sS]\d{8}$");
 
             if (re.IsMatch(input))
                 return true;
-            else
-                return false;
+
+            return false;
         }
 
         public static bool IsDoubleTo100(string input)
         {
             Regex re = new Regex(@"^([0-9]{1,2}){1}(\.[0-9]{1,})?$");
-            // probably not the best regext but it works
+            // probably not the prettiest regext but it works
 
             if (re.IsMatch(input) == true || input == "100")
                 return true;
-            else
-                return false;
+
+            return false;
         }
     }
 
@@ -141,27 +178,35 @@ namespace Improved
 
             return total;
         }
-    }
-    /*
-    public class StudentManager
-    {
-        private List<Student> students;
 
-        public StudentManager()
+        public static double AverageMark(this List<Student> students, char target)
         {
-            students = new List<Student>();
-        }
+            double total = 0;
 
-        public int CountGrades(char target)
-        {
-            int total = 0;
+            int howMany = students.CountGrades(target);
+            if (howMany == 0)
+                return 0;
 
-            foreach (Student student in this.students)
+            foreach (Student student in students)
                 if (student.grade == target)
-                    total++;
+                    total += student.mark;
 
-            return total;
+            return total / howMany;
+        }
+
+        public static double OverallAverageMark(this List<Student> students)
+        {
+            double total = 0;
+
+            int howMany = students.Count;
+            if (howMany == 0)
+                return 0;
+
+            foreach (Student student in students)
+                total += student.mark;
+
+            return total / howMany;
         }
     }
-    */
+    
 }
