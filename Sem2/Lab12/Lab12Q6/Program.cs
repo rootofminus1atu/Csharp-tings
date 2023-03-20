@@ -2,10 +2,57 @@
 {
     internal class Program
     {
+
+        public static Dictionary<string, string> choices = new Dictionary<string, string>()
+        {
+            ["h"] = "hi"
+        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to our shop");
             string choice = "";
+
+
+
+
+
+            var date1 = new DateTime(2008, 5, 1);
+            Console.WriteLine(date1);
+
+
+            /* ideas
+             https://dribbble.com/shots/18690883-Landing-Page-NFT-Cryptogame/attachments/13879616?mode=media
+            
+             
+             */
+
+
+
+
+
+
+
+            Product prod1 = new Product("oranges", 5, 10);
+            Product prod2 = new Product("apples", 3, 10);
+            Product prod3 = new Product("bananas", 4, 10);
+
+            List<Product> products = new List<Product>() { prod1, prod2, prod3 };
+
+
+            double price = products.CalcPrice();
+            Console.WriteLine(price);
+
+
+
+
+
+
+
+
+
+
+
 
             while (choice != "4")
             {
@@ -26,8 +73,12 @@
                 {
                     Console.WriteLine("3rd");
                 }
+                else if (choice == "4")
+                {
+                    break;
+                }
                 else
-                    Console.WriteLine("what?");
+                    Console.WriteLine("Not a valid choice");
             }
 
             Console.WriteLine("Bye");
@@ -56,5 +107,37 @@
             this.Amount = amount;
         }
 
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+    }
+
+    static class ProductExtension
+    {
+        public static double CalcPrice(this Product[] products)
+        {
+            double price = 0;
+
+            foreach (Product product in products)
+            {
+                price += product.Price * product.Amount;
+            }
+
+            return price;
+        }
+
+        public static double CalcPrice(this List<Product> products)
+        {
+            double price = 0;
+
+            foreach (Product product in products)
+            {
+                price += product.Price * product.Amount;
+            }
+
+            return price;
+        }
     }
 }
