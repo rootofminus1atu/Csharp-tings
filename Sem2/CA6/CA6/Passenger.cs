@@ -76,6 +76,20 @@ namespace CA6
 
             return uniqueShips;
         }
+    
+        public static List<Passenger> GetPassengersOnShip(this List<Passenger> passengers, Ship ship)
+        {
+            List<Passenger> theChosenOnes = passengers
+                .Where(p => p.Ship.ShipID == ship.ShipID)
+                .ToList();
+
+            return theChosenOnes;
+
+            // this could be used to get the count too! pretty easily
+            // instead of typing
+            // p.Ship.ShipID == ship.ShipID
+            // I could implement ship equality
+        }
     }
 
     public class Ship
