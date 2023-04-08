@@ -9,7 +9,7 @@ namespace Lab13Q1
         {
             // dbs are better but still more painful than in python
 
-            string connectionString = "mongodb+srv://RootOfMinus1:huehuehue@cluster0.ccfbwh6.mongodb.net/?retryWrites=true&w=majority";
+            string connectionString =  $"mongodb+srv://RootOfMinus1:{"lol"}@cluster0.ccfbwh6.mongodb.net/?retryWrites=true&w=majority";
             var client = new MongoClient(connectionString);
 
             var db = client.GetDatabase("CatWithHorns");
