@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            // a concert analyzer 
+
             Concert concert = new Concert("dude", 99, 100, 25);
 
             Console.WriteLine(concert.GetPriceClassification());
