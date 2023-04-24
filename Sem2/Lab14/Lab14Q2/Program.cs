@@ -4,7 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            char copyrightSymbol = '\u00A9';
+            char omegaSymbol = '\u03A9';
+            char newLine = '\u000A';
+
+            Console.WriteLine($"{copyrightSymbol} and {omegaSymbol} and {newLine} the end");
+
         }
     }
 }
