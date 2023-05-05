@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fruit Smoothie", "Fruit Smo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fruit Smoothie v2", "Fruit Smoothie v2\Fruit Smoothie v2.csproj", "{43B88B2E-B6E5-4471-BCE5-8B7DBDDAE52A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alergies class", "Alergies class\Alergies class.csproj", "{6509E98D-2E3D-4C3B-A01D-FAD3F3B72687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alergies class", "Alergies class\Alergies class.csproj", "{6509E98D-2E3D-4C3B-A01D-FAD3F3B72687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linked lists", "Linked lists\Linked lists.csproj", "{D6E8DBDF-09A9-45A3-9975-6EF920B0FAF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{6509E98D-2E3D-4C3B-A01D-FAD3F3B72687}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6509E98D-2E3D-4C3B-A01D-FAD3F3B72687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6509E98D-2E3D-4C3B-A01D-FAD3F3B72687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E8DBDF-09A9-45A3-9975-6EF920B0FAF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E8DBDF-09A9-45A3-9975-6EF920B0FAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E8DBDF-09A9-45A3-9975-6EF920B0FAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E8DBDF-09A9-45A3-9975-6EF920B0FAF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
