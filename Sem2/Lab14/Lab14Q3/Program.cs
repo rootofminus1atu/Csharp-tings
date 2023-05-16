@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Account bankAccount = new Account("hi");
+            Account bankAccount = new Account("hi", 1000, "1234");
 
             bankAccount.PinDepositMoney(100);
         }
@@ -13,10 +13,14 @@
     public class Account
     {
         public string Name { get; set; }
+        public double Balance { get; set; }
+        public string Pin { get; set; }
 
-        public Account(string name)
+        public Account(string name, double balance, string pin)
         {
             Name = name;
+            Balance = balance;
+            Pin = pin;
         }
 
         public void CheckBalance()
@@ -30,7 +34,7 @@
                 if (pin == "secretpin")
                 {
                     // actual CheckBalance code is here
-                    Console.WriteLine("You have 1000");
+                    Console.WriteLine($"You have {Balance}");
                     return;
                     // and ends here
                 }
@@ -58,7 +62,7 @@
         {
             Action wrapper = () =>
             {
-                Console.WriteLine("Checking balance begins");
+                Console.WriteLine("Started procedure with PIN");
                 for (int i = 0; i < 3; i++)
                 {
                     Console.Write("Input PIN: ");
@@ -67,13 +71,20 @@
                     if (pin == "secretpin")
                     {
                         action();
+                        break;
+                    }
+                    else if (i == 2)
+                    {
+                        Console.WriteLine("That was the last chance");
                     }
                     else
+                    {
                         Console.WriteLine("Try again");
+                    }
                 }
-                Console.WriteLine("Go away");
+                Console.WriteLine("Ended procedure with PIN");
             };
-            return action;
+            return wrapper;
         }
 
         public void PinDepositMoney(int amount)
