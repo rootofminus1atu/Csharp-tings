@@ -23,6 +23,17 @@ namespace Practice_CA4
             get { return _id; }
             set { _id = value; }
         }
+        public int TankSize
+        {
+            get { return _tankSize; }
+            set { _tankSize = value; }
+        }
+        public double FuelEfficiency
+        {
+            get { return _fuelEfficiency; }
+            set { _fuelEfficiency = value; }
+        }
+
         public Car()
         {
             _id = counter;
