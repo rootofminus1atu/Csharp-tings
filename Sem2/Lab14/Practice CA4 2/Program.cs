@@ -6,78 +6,75 @@ namespace Practice_CA4_2
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+
+
             string filePath = @"../../../clames.csv";
-
-
-            List<Claim> claims2 = GetClaimsWithErrorHandling(filePath);
-            List<Claim> claims = GetClaimData(filePath);
-
             List<string> categories = new List<string>() { "fire", "flood", "burglary" };
 
 
-            // add list of desired types
-            // push it into the func here
-            // get desired numbers
-            // print them
 
-            // Console.WriteLine(claims.GetTotalClaimsFor("flood"));
-            // Console.WriteLine(claims.GetTotalValueFor("fire"));
+            List<Claim> claims = GetClaimData(filePath);
 
             claims.DisplayReport(categories);
-            claims2.DisplayReport(categories);
-
-
-        }
-
-        public static Func<string, TResult> ErrorHandlingDecorator<TResult>(Func<string, TResult> fileLoad)
-        {
-            TResult wrapper(string filePath)
-            {
-                Console.WriteLine("Started");
-                TResult result = fileLoad(filePath);
-                Console.WriteLine("Ended");
-
-                return result;
-            };
-
-            return wrapper;
         }
 
         public static List<Claim> GetClaimData(string filePath)
         {
             List<Claim> claims = new List<Claim>() { };
 
-            using (StreamReader sr = File.OpenText(filePath))
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Loading the file...");
+            Console.ResetColor();
+
+            try
             {
-                string? s;
-                while ((s = sr.ReadLine()) != null)
+                using (StreamReader sr = File.OpenText(filePath))
                 {
-                    string[] fields = s.Split(',');
+                    string? s;
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        string[] fields = s.Split(',');
 
-                    Claim claim = new(
-                        fields[0],
-                        fields[1],
-                        fields[2],
-                        double.Parse(fields[3])
-                        );
+                        Claim claim = new(
+                            fields[0],
+                            fields[1],
+                            fields[2],
+                            double.Parse(fields[3])
+                            );
 
-                    claims.Add(claim);
+                        claims.Add(claim);
 
-                    // debug stuff
-                    // Console.WriteLine(passenger.ToString());
-                    Console.WriteLine(s);
+                        // debug stuff
+                        Console.WriteLine(claim.ToString());
+                    }
                 }
+
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("File loaded successfully!");
+                Console.ResetColor();
+            }
+            catch (Exception ex) when (
+                ex is DirectoryNotFoundException ||
+                ex is FileNotFoundException ||
+                ex is UnauthorizedAccessException ||
+                ex is IOException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[ERROR] {ex.Message}");
+                Console.ResetColor();
+
+                Environment.Exit(0);
             }
 
             return claims;
         }
 
-        public static List<Claim> GetClaimsWithErrorHandling(string filePath)
-        {
-            return ErrorHandlingDecorator(GetClaimData)(filePath);
-        }
     }
 
     public class Claim
@@ -99,21 +96,16 @@ namespace Practice_CA4_2
 
         public override string ToString()
         {
-            return $"";
+            return $"Id: {Id}, Date: {Date}, Claim type: {ClaimType}, Amount: {Amount}";
         }
     }
 
     public static class ClaimExtension
     {
-        public static void SayHi(this List<Claim> lst)
-        {
-            Console.WriteLine("Hi!");
-        }
-
         public static int GetTotalClaimsFor(this List<Claim> claims, string claimType)
         {
             int total = claims
-                .Where(x => x.ClaimType == claimType)
+                .Where(c => c.ClaimType == claimType)
                 .Count();
 
             return total;
@@ -132,8 +124,8 @@ namespace Practice_CA4_2
         public static double GetTotalValueFor(this List<Claim> claims, string claimType)
         {
             double total = claims
-                .Where(x => x.ClaimType == claimType)
-                .Select(x => x.Amount)
+                .Where(c => c.ClaimType == claimType)
+                .Select(c => c.Amount)
                 .Sum();
 
             return total;
@@ -157,10 +149,10 @@ namespace Practice_CA4_2
             Console.WriteLine("");
 
             foreach (string type in categories)
-                Console.WriteLine($"{type.ToTitle(),k1}{claims.GetTotalClaimsFor(type),k1}{claims.GetTotalValueFor(type)}");
+                Console.WriteLine($"{type.ToTitle(),k1}{claims.GetTotalClaimsFor(type),k1}€{claims.GetTotalValueFor(type)}");
 
             Console.WriteLine("");
-            Console.WriteLine($"{"Grand Totals",k1}{claims.GetTotalClaimsFor(categories),k1}{claims.GetTotalValueFor(categories)}");
+            Console.WriteLine($"{"Grand Totals",k1}{claims.GetTotalClaimsFor(categories),k1}€{claims.GetTotalValueFor(categories)}");
 
         }
     }
