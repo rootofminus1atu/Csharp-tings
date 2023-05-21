@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hex converter", "Hex conver
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roman numerals", "Roman numerals\Roman numerals.csproj", "{3D307B80-9D4C-4DE5-A6DA-B5A962A66A43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Category theory", "Category theory\Category theory.csproj", "{16F3B7B8-FB9E-4CDE-88FB-713E0219F503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Category theory", "Category theory\Category theory.csproj", "{16F3B7B8-FB9E-4CDE-88FB-713E0219F503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu maker", "Menu maker\Menu maker.csproj", "{66AF94FB-DA02-4378-B581-A7A39F15C263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{16F3B7B8-FB9E-4CDE-88FB-713E0219F503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16F3B7B8-FB9E-4CDE-88FB-713E0219F503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16F3B7B8-FB9E-4CDE-88FB-713E0219F503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66AF94FB-DA02-4378-B581-A7A39F15C263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66AF94FB-DA02-4378-B581-A7A39F15C263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66AF94FB-DA02-4378-B581-A7A39F15C263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66AF94FB-DA02-4378-B581-A7A39F15C263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
