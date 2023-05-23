@@ -1,0 +1,7 @@
+S01,male,18000
+S02,female,20000
+S03,female,27000
+S04,male,30000
+S05,male,36000
+S06,female,70000
+S07,female,45000

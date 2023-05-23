@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab14Q3", "Lab14Q3\Lab14Q3.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practice CA4", "Practice CA4\Practice CA4.csproj", "{5B1E71FB-7671-4FDC-9D82-964D4C8CC391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice CA4 2", "Practice CA4 2\Practice CA4 2.csproj", "{836C1EF5-26AF-4190-90B1-C51FAC0EA0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Practice CA4 2", "Practice CA4 2\Practice CA4 2.csproj", "{836C1EF5-26AF-4190-90B1-C51FAC0EA0AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice CA4 2018", "Practice CA4 2018\Practice CA4 2018.csproj", "{7F96D6F9-573A-4146-903F-369CB09C169E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practice CA4 2018 2", "Practice CA4 2018 2\Practice CA4 2018 2.csproj", "{CFA9ECA2-3AD6-4257-AB55-44D7103E33A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{836C1EF5-26AF-4190-90B1-C51FAC0EA0AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{836C1EF5-26AF-4190-90B1-C51FAC0EA0AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{836C1EF5-26AF-4190-90B1-C51FAC0EA0AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F96D6F9-573A-4146-903F-369CB09C169E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F96D6F9-573A-4146-903F-369CB09C169E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F96D6F9-573A-4146-903F-369CB09C169E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F96D6F9-573A-4146-903F-369CB09C169E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA9ECA2-3AD6-4257-AB55-44D7103E33A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA9ECA2-3AD6-4257-AB55-44D7103E33A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA9ECA2-3AD6-4257-AB55-44D7103E33A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA9ECA2-3AD6-4257-AB55-44D7103E33A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
