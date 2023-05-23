@@ -4,6 +4,11 @@
     {
         static void Main(string[] args)
         {
+            // TODO:
+            // add start/end text
+            // indexing is weird? idk how to fix that yet
+            // add a better way to manage default arguments
+
             List<MenuOption> menu1Options = new List<MenuOption>() 
             { 
                 new MenuOption("I will say hi", SayHi),
