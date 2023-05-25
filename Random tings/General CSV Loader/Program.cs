@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualBasic;
+using System;
+using System.ComponentModel;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace General_CSV_Loader
 {
@@ -16,6 +20,74 @@ namespace General_CSV_Loader
             {
                 Console.WriteLine(person.ToString());
             }
+        }
+
+        public static bool TryConvertValue(string value, Type targetType, out object convertedValue)
+        {
+            bool success;
+
+            try
+            {
+                convertedValue = Convert.ChangeType(value, targetType);
+                success = true;
+            }
+            catch
+            {
+                convertedValue = default;
+                success = false;
+            }
+
+            return success;
+        }
+
+        public static (T, List<string>) TryLineToObj<T>(string line)
+        {
+            string[] fields = line.Split(',');
+            T obj = Activator.CreateInstance<T>();
+
+            List<string> log = new List<string>();
+
+            PropertyInfo[] properties = typeof(T).GetProperties();
+
+            for (int i = 0; i < Math.Min(properties.Length, fields.Length); i++)
+            {
+                string field = fields[i];
+                PropertyInfo property = properties[i];
+
+                if (TryConvertValue(field, property.PropertyType, out object convertedValue))
+                {
+                    property.SetValue(obj, convertedValue);
+                }
+                else
+                {
+                    log.Add(field);
+                }
+            }
+
+            return (obj, log);
+        }
+
+        public static List<T> SafeConvertToList<T>(List<string> contents)
+        {
+            List<T> objects = new List<T>();
+
+            foreach (string line in contents)
+            {
+                (T obj, List<string> log) = TryLineToObj<T>(line);
+
+                if (log.Count == 0)
+                {
+                    objects.Add(obj);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"[Warning] `{line}` contains data that could not be converted ({string.Join(", ", log)}). Skipping.");
+                    Console.ResetColor();
+                }
+            }
+
+            return objects;
         }
 
         public static T LineToObj<T>(string line)
@@ -34,20 +106,6 @@ namespace General_CSV_Loader
             return obj;
         }
 
-        public static bool TryConvertValue<T>(string value, out T convertedValue)
-        {
-            try
-            {
-                convertedValue = (T)Convert.ChangeType(value, typeof(T));
-                return true;
-            }
-            catch
-            {
-                convertedValue = default(T);
-                return false;
-            }
-        }
-
         public static List<T> ConvertToList<T>(List<string> contents)
         {
             List<T> objects = new List<T>() { };
@@ -57,9 +115,9 @@ namespace General_CSV_Loader
                 T obj = LineToObj<T>(line);
                 objects.Add(obj);
                 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"[Warning] `{line}` contains data that could not be converted. Skipping.");
-                Console.ResetColor();
+                //Console.ForegroundColor = ConsoleColor.DarkYellow;
+                //Console.WriteLine($"[Warning] `{line}` contains data that could not be converted. Skipping.");
+                //Console.ResetColor();
 
             }
 
@@ -144,7 +202,7 @@ namespace General_CSV_Loader
             Console.WriteLine("Beginning conversion...");
             Console.ResetColor();
 
-            return ConvertToList<T>(contents);
+            return SafeConvertToList<T>(contents);
         }
     }
 
@@ -155,13 +213,15 @@ namespace General_CSV_Loader
 
         public int Age { get; set; }
 
+        public double Salary { get; set; }
+
 
         public Person() { }
 
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName} aged {Age}";
+            return $"{FirstName} {LastName} aged {Age} with salary {Salary}";
         }
     }
 }
