@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Microsoft.VisualBasic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace General_CSV_Loader
@@ -7,14 +8,14 @@ namespace General_CSV_Loader
     {
         static void Main(string[] args)
         {
-
-
-
-
             string filePath = @"../../../people.txt";
 
             List<Person> people2 = ExtractData<Person>(filePath);
-            Console.WriteLine(people2[1].ToString());
+
+            foreach (Person person in people2)
+            {
+                Console.WriteLine(person.ToString());
+            }
         }
 
         public static T LineToObj<T>(string line)
@@ -22,7 +23,7 @@ namespace General_CSV_Loader
             string[] fields = line.Split(',');
             T obj = Activator.CreateInstance<T>();
 
-            var properties = typeof(T).GetProperties();
+            PropertyInfo[] properties = typeof(T).GetProperties();
 
             for (int i = 0; i < Math.Min(properties.Length, fields.Length); i++)
             {
@@ -33,6 +34,20 @@ namespace General_CSV_Loader
             return obj;
         }
 
+        public static bool TryConvertValue<T>(string value, out T convertedValue)
+        {
+            try
+            {
+                convertedValue = (T)Convert.ChangeType(value, typeof(T));
+                return true;
+            }
+            catch
+            {
+                convertedValue = default(T);
+                return false;
+            }
+        }
+
         public static List<T> ConvertToList<T>(List<string> contents)
         {
             List<T> objects = new List<T>() { };
@@ -40,8 +55,12 @@ namespace General_CSV_Loader
             foreach (string line in contents)
             {
                 T obj = LineToObj<T>(line);
-
                 objects.Add(obj);
+                
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"[Warning] `{line}` contains data that could not be converted. Skipping.");
+                Console.ResetColor();
+
             }
 
             return objects;
@@ -51,12 +70,12 @@ namespace General_CSV_Loader
         {
             List<string> lines = new List<string>() { };
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Loading CSV file contents...");
-            Console.ResetColor();
-
             try
             {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Loading file contents...");
+                Console.ResetColor();
+
                 using (StreamReader sr = File.OpenText(filePath))
                 {
                     // skipping the 1st row
@@ -82,7 +101,8 @@ namespace General_CSV_Loader
                 ex is DirectoryNotFoundException ||
                 ex is FileNotFoundException ||
                 ex is UnauthorizedAccessException ||
-                ex is IOException)
+                ex is IOException ||
+                ex is ArgumentException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"[ERROR] {ex.Message}");
@@ -116,21 +136,16 @@ namespace General_CSV_Loader
             else if (fieldsCount > propertiesCount)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine($"[Warning] The CSV file has {fieldsCount} fields, but there are only {propertiesCount} properties in the {typeof(T).Name} class. Consider adding more properties to {typeof(T)}");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Converting contents to");
+                Console.WriteLine($"[Warning] The CSV file has {fieldsCount} fields, but there are only {propertiesCount} properties in the {typeof(T).Name} class. Consider adding more properties to {typeof(T).Name}");
                 Console.ResetColor();
             }
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Beginning conversion...");
+            Console.ResetColor();
 
             return ConvertToList<T>(contents);
         }
-
-
     }
 
     public class Person
@@ -138,7 +153,7 @@ namespace General_CSV_Loader
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-
+        public int Age { get; set; }
 
 
         public Person() { }
@@ -146,7 +161,7 @@ namespace General_CSV_Loader
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName}";
+            return $"{FirstName} {LastName} aged {Age}";
         }
     }
 }
