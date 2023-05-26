@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Category theory", "Category
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu maker", "Menu maker\Menu maker.csproj", "{66AF94FB-DA02-4378-B581-A7A39F15C263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "General CSV Loader", "General CSV Loader\General CSV Loader.csproj", "{8823484F-1AA0-4C95-B40C-F8E7CA8F4221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "General CSV Loader", "General CSV Loader\General CSV Loader.csproj", "{8823484F-1AA0-4C95-B40C-F8E7CA8F4221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleColors", "ConsoleColors\ConsoleColors.csproj", "{F1466F98-859B-4FD2-9261-B9EDE1C46993}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{8823484F-1AA0-4C95-B40C-F8E7CA8F4221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8823484F-1AA0-4C95-B40C-F8E7CA8F4221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8823484F-1AA0-4C95-B40C-F8E7CA8F4221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1466F98-859B-4FD2-9261-B9EDE1C46993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1466F98-859B-4FD2-9261-B9EDE1C46993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1466F98-859B-4FD2-9261-B9EDE1C46993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1466F98-859B-4FD2-9261-B9EDE1C46993}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
