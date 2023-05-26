@@ -25,6 +25,8 @@ namespace ConsoleColors
 
 
 
+            // wip 
+
             ProgressBar progressBar = new ProgressBar(10);
 
             for (int i = 0; i <= 100; i++)
