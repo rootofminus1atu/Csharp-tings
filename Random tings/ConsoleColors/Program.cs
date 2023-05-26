@@ -21,30 +21,31 @@
 
     public class NewConsole
     {
-        private enum Status
-        {
-            Success,
-            Warning,
-            Error,
 
-            Important
+        private enum TextEffect
+        {
+            Red = 31,
+            Green = 32,
+            Yellow = 33,
+            ColorReset = 39,
+            Underline = 4,
+            UnderlineReset = 24,
+            AllReset = 0
         }
 
-        private static Dictionary<Status, (string normal, string accent)> colors = new Dictionary<Status, (string, string)>()
+        private static string ToAnsi(TextEffect type)
         {
-            [Status.Success] = ("\u001b[32m", "\u001b[33m"),
-            [Status.Warning] = ("\u001b[0m", "\u001b[4m"),
-            [Status.Error] = ("\u001b[31m", "\u001b[36m")
-        };
+            return $"\u001b[{(int) type}m";
+        }
 
         public static string Underline(string input)
         {
-            return "\u001b[4m" + input + "\u001b[24m";
+            return ToAnsi(TextEffect.Underline) + input + ToAnsi(TextEffect.UnderlineReset);
         }
 
         public static string Red(string input)
         {
-            return "\u001b[31m" + input + "\u001b[39m";
+            return ToAnsi(TextEffect.Red) + input + ToAnsi(TextEffect.ColorReset);
         }
 
         public static void WriteWarning(string input, string? end = "\n")
@@ -56,17 +57,15 @@
 
         public static void WriteAdvancedWarning(string input)
         {
-            var (normal, accent) = colors[Status.Warning];
-
             string[] chunks = input.Split('`');
 
             for (int i = 0; i < chunks.Length; i++)
             {
                 if (i % 2 == 1)
-                    chunks[i] = accent + chunks[i] + normal; 
+                    chunks[i] = Underline(chunks[i]); 
             }
 
-            Console.WriteLine($"{accent}[Warning]{normal} {string.Join("", chunks)}");
+            Console.WriteLine(Red($"[Warning] {string.Join("", chunks)}") + ToAnsi(TextEffect.AllReset));
         }
 
         public static void WriteError(string input)
