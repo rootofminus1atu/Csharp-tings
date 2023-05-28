@@ -20,7 +20,7 @@ namespace ConsoleColors
             NewConsole.WriteError("You can't use `[1 , 2, 3]` in method named `Hecc`");
 
             Console.WriteLine("hi again");
-            Console.WriteLine(Fore.Blue.Apply("hi but in blue"));
+            Console.WriteLine(Fore.Blue.Apply($"hi but in {Style.Underline.Apply("BLUE")} (cool color)"));
 
 
 
