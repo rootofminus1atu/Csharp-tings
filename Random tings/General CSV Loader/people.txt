@@ -1,3 +1,3 @@
 jeff,kaplan,1,100.5
-hi
-planet,coffee,3,hi
+hi,2,hi,j
+planet,coffee,3,5
