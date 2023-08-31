@@ -20,51 +20,7 @@ namespace General_CSV_Loader
 
             foreach (Person person in people)
                 Console.WriteLine(person.ToString());
-
-            /*
-            List<Person> people2 = CSV.ExtractData<Person>(filePath);
-
-            foreach (Person person in people2)
-                Console.WriteLine(person.ToString());
-            */
         }
-
-
-
-        public static T LineToObj<T>(string line)
-        {
-            string[] fields = line.Split(',');
-            T obj = Activator.CreateInstance<T>();
-
-            PropertyInfo[] properties = typeof(T).GetProperties();
-
-            for (int i = 0; i < Math.Min(properties.Length, fields.Length); i++)
-            {
-                PropertyInfo property = properties[i];
-                property.SetValue(obj, Convert.ChangeType(fields[i], property.PropertyType));
-            }
-
-            return obj;
-        }
-
-        public static List<T> ConvertToList<T>(List<string> contents)
-        {
-            List<T> objects = new List<T>() { };
-
-            foreach (string line in contents)
-            {
-                T obj = LineToObj<T>(line);
-                objects.Add(obj);
-                
-                //Console.ForegroundColor = ConsoleColor.DarkYellow;
-                //Console.WriteLine($"[Warning] `{line}` contains data that could not be converted. Skipping.");
-                //Console.ResetColor();
-
-            }
-
-            return objects;
-        }
-
         
     }
 

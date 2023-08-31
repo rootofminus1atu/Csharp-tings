@@ -8,13 +8,32 @@ using System.Threading.Tasks;
 
 namespace General_CSV_Loader
 {
+    /// <summary>
+    /// Parses CSV files and converts the data into objects of the specified type.
+    /// </summary>
     public class CSVParser
     {
+        /// <summary>
+        /// The delimiter used to separate values in the CSV file.
+        /// </summary>
         public readonly char delimeter;
+
+        /// <summary>
+        /// Whether to skip the first row of the CSV file.
+        /// </summary>
         public readonly bool skip1stRow;
+
+        /// <summary>
+        /// Whether to print debug information during parsing.
+        /// </summary>
         public readonly bool printDebug;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CSVParser"/> class.
+        /// </summary>
+        /// <param name="delimeter">The delimiter character.</param>
+        /// <param name="skip1stRow">Whether to skip the first row.</param>
+        /// <param name="printDebug">Whether to print debug information.</param>
         public CSVParser(char delimeter = ',', bool skip1stRow = false, bool printDebug = false)
         {
             this.delimeter = delimeter;
@@ -144,7 +163,7 @@ namespace General_CSV_Loader
 
             foreach (string line in contents)
             {
-                ConversionResult<T> result = TryLineToObj<T>(line);
+                ConversionResult<T> result = ConversionResult.TryLineToObj<T>(line);
 
                 if (result.Success)
                 {
@@ -160,6 +179,10 @@ namespace General_CSV_Loader
         }
     }
 
+    /// <summary>
+    /// Represents the result of trying to convert a CSV line into an object.
+    /// </summary>
+    /// <typeparam name="T">The type of object being converted.</typeparam>
     public class ConversionResult<T>
     {
         public T Object { get; }
@@ -188,5 +211,7 @@ namespace General_CSV_Loader
         {
             property.SetValue(Object, value);
         }
+
+        public ConversionResult
     }
 }
