@@ -8,32 +8,12 @@ using System.Threading.Tasks;
 
 namespace General_CSV_Loader
 {
-    /// <summary>
-    /// Parses CSV files and converts the data into objects of the specified type.
-    /// </summary>
     public class CSVParser
     {
-        /// <summary>
-        /// The delimiter used to separate values in the CSV file.
-        /// </summary>
         public readonly char delimeter;
-
-        /// <summary>
-        /// Whether to skip the first row of the CSV file.
-        /// </summary>
         public readonly bool skip1stRow;
-
-        /// <summary>
-        /// Whether to print debug information during parsing.
-        /// </summary>
         public readonly bool printDebug;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CSVParser"/> class.
-        /// </summary>
-        /// <param name="delimeter">The delimiter character.</param>
-        /// <param name="skip1stRow">Whether to skip the first row.</param>
-        /// <param name="printDebug">Whether to print debug information.</param>
         public CSVParser(char delimeter = ',', bool skip1stRow = false, bool printDebug = false)
         {
             this.delimeter = delimeter;
@@ -115,27 +95,60 @@ namespace General_CSV_Loader
             return SafeConvertToList<T>(contents);
         }
 
-        public static bool TryConvertValue(string value, Type targetType, out object convertedValue)
+        public List<T> SafeConvertToList<T>(List<string> contents)
         {
-            bool success;
+            List<T> objects = new List<T>();
 
-            try
+            foreach (string line in contents)
             {
-                convertedValue = Convert.ChangeType(value, targetType);
-                success = true;
-            }
-            catch 
-            {
-                convertedValue = default;
-                success = false;
+                ConversionResult<T> result = ConversionResult<T>.FromCSVString(line, delimeter);
+
+                if (result.Success)
+                {
+                    objects.Add(result.Object);
+                }
+                else
+                {
+                    CustomConsole.WriteWarning($"`{line}` contains data that could not be converted ({string.Join(", ", result.FaultyFields)}). Skipping.");
+                }
             }
 
-            return success;
+            return objects;
+        }
+    }
+
+    public class ConversionResult<T>
+    {
+        public T Object { get; }
+        public List<string> FaultyFields { get; }
+
+        public bool Success => FaultyFields.Count() == 0;
+
+        public ConversionResult() 
+        {
+            Object = Activator.CreateInstance<T>();
+            FaultyFields = new List<string>();
         }
 
-        public ConversionResult<T> TryLineToObj<T>(string line)
+        public ConversionResult(T obj, List<string> faultyFields)
         {
-            string[] csvFields = line.Split(this.delimeter);
+            Object = obj;
+            FaultyFields = faultyFields;
+        }
+
+        private void AddFaultyField(string field)
+        {
+            FaultyFields.Add(field);
+        }
+
+        private void AssignProp(PropertyInfo property, object value)
+        {
+            property.SetValue(Object, value);
+        }
+
+        public static ConversionResult<T> FromCSVString(string csvString, char delimeter)
+        {
+            string[] csvFields = csvString.Split(delimeter);
             ConversionResult<T> result = new ConversionResult<T>();
             PropertyInfo[] properties = typeof(T).GetProperties();
 
@@ -157,61 +170,24 @@ namespace General_CSV_Loader
             return result;
         }
 
-        public List<T> SafeConvertToList<T>(List<string> contents)
+
+        private static bool TryConvertValue(string value, Type targetType, out object convertedValue)
         {
-            List<T> objects = new List<T>();
+            bool success;
 
-            foreach (string line in contents)
+            try
             {
-                ConversionResult<T> result = ConversionResult.TryLineToObj<T>(line);
-
-                if (result.Success)
-                {
-                    objects.Add(result.Object);
-                }
-                else
-                {
-                    CustomConsole.WriteWarning($"`{line}` contains data that could not be converted ({string.Join(", ", result.FaultyFields)}). Skipping.");
-                }
+                convertedValue = Convert.ChangeType(value, targetType);
+                success = true;
+            }
+            catch
+            {
+                convertedValue = default;
+                success = false;
             }
 
-            return objects;
-        }
-    }
-
-    /// <summary>
-    /// Represents the result of trying to convert a CSV line into an object.
-    /// </summary>
-    /// <typeparam name="T">The type of object being converted.</typeparam>
-    public class ConversionResult<T>
-    {
-        public T Object { get; }
-        public List<string> FaultyFields { get; }
-
-        public bool Success => FaultyFields.Count() == 0;
-
-        public ConversionResult() 
-        {
-            Object = Activator.CreateInstance<T>();
-            FaultyFields = new List<string>();
+            return success;
         }
 
-        public ConversionResult(T obj, List<string> faultyFields)
-        {
-            Object = obj;
-            FaultyFields = faultyFields;
-        }
-
-        public void AddFaultyField(string field)
-        {
-            FaultyFields.Add(field);
-        }
-
-        public void AssignProp(PropertyInfo property, object value)
-        {
-            property.SetValue(Object, value);
-        }
-
-        public ConversionResult
     }
 }
