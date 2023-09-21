@@ -1,18 +1,15 @@
-﻿using System.Globalization;
-using System.Runtime;
-
-namespace Q1
+﻿namespace Q2
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.Write("Input percentage: ");
-            int percentage = int.Parse(Console.ReadLine());
+            // change this to test
+            string grade = "H2";
 
-            int points = PointsFromPercentage(percentage);
+            int points = PointsFromGrade(grade);
 
-            Console.WriteLine($"For {percentage}% you get {points} points");
+            Console.WriteLine($"For {grade} you get {points} points");
         }
 
         static string GradeFromPercentage(int percentage) => percentage switch
@@ -30,7 +27,7 @@ namespace Q1
 
         static int PointsFromGrade(string grade)
         {
-            switch(grade)
+            switch (grade)
             {
                 case "H1":
                     return 100;

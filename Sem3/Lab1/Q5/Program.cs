@@ -1,10 +1,10 @@
-﻿namespace Lab1
+﻿namespace Q5
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            /* this is for lab 1 */
+            Console.WriteLine("Hello, World!");
         }
     }
 }
