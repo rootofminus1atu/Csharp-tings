@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            /* this is for lab 1 */
+            // lab 1 exercises
         }
     }
 }

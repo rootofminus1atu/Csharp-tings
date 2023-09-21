@@ -4,6 +4,10 @@
     {
         static void Main(string[] args)
         {
+            /*
+             * Amend exercise 1 above to ask for higher or ordinary level and calculate the points accordingly.
+             */
+
             Console.Write("Input percentage: ");
             int percentage = int.Parse(Console.ReadLine());
 

@@ -7,6 +7,11 @@ namespace Q1
     {
         static void Main(string[] args)
         {
+            /*
+             * Ask the user to enter a percentage grade and return the number of points. 
+             * Use the leaving cert points system and assume only higher paper (for now!)
+             */
+
             Console.Write("Input percentage: ");
             int percentage = int.Parse(Console.ReadLine());
 

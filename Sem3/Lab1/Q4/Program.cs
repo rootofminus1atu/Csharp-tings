@@ -4,7 +4,15 @@
     {
         static void Main(string[] args)
         {
+            /*
+             * Add a for loop which will repeat 7 times and ask for results in each of 7 subjects. 
+             * Keep a tally of the total number of points and display this at the end.  
+             * Normally Leaving Cert results are comprised of 6 subjects. 
+             * Amend so that the lowest number of points are discarded.
+             */
+
             List<int> pointsList = new();
+
 
             for (int i = 0; i < 2; i++)
             {
@@ -13,8 +21,6 @@
 
                 Console.Write("Input higher (H) or ordinary (O) level: ");
                 string choice = Console.ReadLine().ToUpper();
-
-                string[] validChoices = { "H", "O" };
 
 
                 int points = PointsFromPercentage(percentage, choice);
@@ -25,14 +31,10 @@
 
 
             int minPoints = pointsList.Min();
-                
             pointsList.Remove(minPoints);
-
             int total = pointsList.Sum();
 
-            Console.WriteLine($"In total you got {total} points (min value of {minPoints} was discarded)");
-
-
+            Console.WriteLine($"\nIn total you got {total} points (min value of {minPoints} points was discarded)");
         }
 
         static string GradeNumFromPercetage(int percentage) => percentage switch

@@ -4,8 +4,12 @@
     {
         static void Main(string[] args)
         {
-            // change this to test
-            string grade = "H2";
+            /*
+             * Use a switch statement which accepts a grade such as H1 and returns the points.
+             */
+
+            Console.Write("Input the grade you got (only higher): ");
+            string grade = Console.ReadLine();
 
             int points = PointsFromGrade(grade);
 
