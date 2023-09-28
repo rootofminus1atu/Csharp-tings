@@ -1,7 +1,7 @@
-Report for: John Doe
-Student number: s000000000
+Report for: bingleshoe the 3rd
+Student number: s444
 
-Subject: bingleshoe the 3rd  Level: H       Percentage: 54%      Grade: H5      Points: 56      
-Subject: physics             Level: O       Percentage: 89%      Grade: O2      Points: 46      
+Subject: math                Level: H       Percentage: 89%      Grade: H2      Points: 88      
+Subject: physics             Level: O       Percentage: 57%      Grade: O5      Points: 20      
 
-Total amount of points: 102
+Total amount of points: 108
