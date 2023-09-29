@@ -29,7 +29,12 @@ namespace Task6
                 string subjectName = Console.ReadLine();
 
                 Console.Write("Enter level (H or O): ");
-                char level = char.ToUpper(Console.ReadLine()[0]);
+                char levelChar = char.ToUpper(Console.ReadLine()[0]);
+                SubjectLevel level = levelChar switch
+                {
+                    'H' => SubjectLevel.H,
+                    'O' => SubjectLevel.O
+                };  // todo: add a base case and throw exceptions in that case (or do some exception handling)
 
                 Console.Write("Enter percentage: ");
                 int percentage = int.Parse(Console.ReadLine());
@@ -67,7 +72,7 @@ namespace Task6
         /// <param name="subjectName"></param>
         /// <param name="level"></param>
         /// <param name="percentage"></param>
-        public void AddSubject(string subjectName, char level, int percentage)
+        public void AddSubject(string subjectName, SubjectLevel level, int percentage)
         {
             Subjects.Add(new Subject(subjectName, level, percentage));
         }
@@ -107,17 +112,23 @@ namespace Task6
         }
     }
 
+    enum SubjectLevel
+    {
+        H = 'H',
+        O = 'O'
+    }
+
     /// <summary>
     /// A class that contains the info for each subject, ie. the subject Name, Level, Percentage, GetGrade() and GetPoints()
     /// </summary>
     class Subject
     {
         public string Name { get; set; }
-        public char Level { get; set; }
+        public SubjectLevel Level { get; set; }
         public int Percentage { get; set; }
 
 
-        public Subject(string name, char level, int percentage)
+        public Subject(string name, SubjectLevel level, int percentage)
         {
             Name = name;
             Level = level;
