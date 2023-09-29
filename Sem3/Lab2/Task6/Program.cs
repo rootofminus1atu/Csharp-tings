@@ -10,15 +10,15 @@ namespace Task6
         {
             string filePath = @"../../../../report.txt";
 
+
+
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
 
             Console.Write("Enter your student number: ");
             string studentNumber = Console.ReadLine();
 
-
-
-            Student student = new Student(name, studentNumber);
+            Student student = new(name, studentNumber);
 
 
 
@@ -46,6 +46,9 @@ namespace Task6
         }
     }
 
+    /// <summary>
+    /// A class that contains the info for a Student's final exams results, ie. Name, StudentNumber and a List of Subjects
+    /// </summary>
     class Student
     {
         public string Name { get; set; }
@@ -58,14 +61,26 @@ namespace Task6
             StudentNumber = studentNumber;
         }
 
+        /// <summary>
+        /// Adds a Subject based on the subject Name, Level and Percentage to the Subjects List
+        /// </summary>
+        /// <param name="subjectName"></param>
+        /// <param name="level"></param>
+        /// <param name="percentage"></param>
         public void AddSubject(string subjectName, char level, int percentage)
         {
             Subjects.Add(new Subject(subjectName, level, percentage));
         }
 
+        /// <summary>
+        /// Generates a report based on the Student's info.
+        /// <br></br>
+        /// A report consists of the Name, StudentNumber, a list of formated Subjects, and additional data about it, for example the total amount of points
+        /// </summary>
+        /// <returns>The report as a string, that can then be displayed in the console, written to a file, etc.</returns>
         public string GenerateReport()
         {
-            StringBuilder report = new StringBuilder();
+            StringBuilder report = new();
             report.AppendLine($"Report for: {Name}");
             report.AppendLine($"Student number: {StudentNumber}");
             report.AppendLine();
@@ -80,14 +95,21 @@ namespace Task6
             return report.ToString();
         }
 
+        /// <summary>
+        /// Returns the total amount of points from the Subjects List
+        /// </summary>
+        /// <returns>The total amount of points from the Subjects List</returns>
         public int GetTotal()
         {
             return Subjects
-                .Select(s => s.Points)
+                .Select(s => s.GetPoints())
                 .Sum();
         }
     }
 
+    /// <summary>
+    /// A class that contains the info for each subject, ie. the subject Name, Level, Percentage, GetGrade() and GetPoints()
+    /// </summary>
     class Subject
     {
         public string Name { get; set; }
@@ -104,29 +126,29 @@ namespace Task6
 
         public override string ToString()
         {
-            return $"Subject: {Name,-20}Level: {Level,-8}Percentage: {Percentage}%      Grade: {Grade,-8}Points: {Points,-8}";
+            return $"Subject: {Name, -20}Level: {Level, -8}Percentage: {Percentage}%      Grade: {GetGrade(), -8}Points: {GetPoints(), -8}";
         }
 
-
-
-        public int Points
+        /// <summary>
+        /// Returns the points associated with a Subject 
+        /// <br></br>
+        /// For example Subject("Math", 'H', 97).GetPoints() returns 100
+        /// </summary>
+        /// <returns>The points associated with a Subject</returns>
+        public int GetPoints()
         {
-            get => CalculatePoints();
-        }
-
-        public string Grade
-        {
-            get => CalculateGrade();
-        }
-
-        private int CalculatePoints()
-        {
-            int points = PointsFromGrade(Grade);
+            int points = PointsFromGrade(GetGrade());
 
             return points;
         }
 
-        private string CalculateGrade()
+        /// <summary>
+        /// Returns the grade associated with a Subject
+        /// /// <br></br>
+        /// For example Subject("Math", 'H', 97).GetGrade() returns H1
+        /// </summary>
+        /// <returns>The grade associated with a Subject</returns>
+        public string GetGrade()
         {
             int gradeNum = GradeNumFromPercentage(Percentage);
             string grade = Level + gradeNum.ToString();
@@ -135,7 +157,11 @@ namespace Task6
         }
 
 
-
+        /// <summary>
+        /// A helper function that converts a given percentage into a CAO grade (for example "H3", "O8" etc.)
+        /// </summary>
+        /// <param name="percentage"></param>
+        /// <returns>A CAO grade (for example "H3", "O8" etc.)</returns>
         private static int GradeNumFromPercentage(int percentage)
         {
             int[] gradeBoundaries =
@@ -168,10 +194,10 @@ namespace Task6
 
 
         /// <summary>
-        /// for example "H1", "O8" etc.
+        /// A helper funciton that converts a given grade (for example "H3", "O8" etc.) into the correct number of points
         /// </summary>
         /// <param name="grade"></param>
-        /// <returns></returns>
+        /// <returns>The amount of CAO points</returns>
         private static int PointsFromGrade(string grade)
         {
             Dictionary<int, int> HToPoints = new()
@@ -198,19 +224,17 @@ namespace Task6
                 [1] = 56
             };
 
-            Dictionary<char, Dictionary<int, int>> OHToDict = new()
+            Dictionary<char, Dictionary<int, int>> PointsDict = new()
             {
                 ['H'] = HToPoints,
                 ['O'] = OToPoints,
             };
 
-            // those dicts could have better names
-
             char level = grade[0];
             int gradeNum = int.Parse(grade[1].ToString());
 
             // picks the right dict and uses it with gradeNum
-            int points = OHToDict[level][gradeNum];
+            int points = PointsDict[level][gradeNum];
 
             return points;
         }
