@@ -23,11 +23,7 @@ namespace Q8
 
                 players.Add(input);
 
-
-
                 counter++;
-
-
             }
 
             players.Sort();
