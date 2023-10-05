@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleColors", "ConsoleCol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RangeMap", "RangeMap\RangeMap.csproj", "{11E9BA0F-77C3-43C1-8D9F-7A40C5A8AF61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rusty Types", "Rusty Types\Rusty Types.csproj", "{B4C08F7E-326C-4808-89FD-D1E7D41AF507}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rusty Types", "Rusty Types\Rusty Types.csproj", "{B4C08F7E-326C-4808-89FD-D1E7D41AF507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intervals", "Intervals\Intervals.csproj", "{85DF4BF9-6F96-4716-B933-EF2356515D30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{B4C08F7E-326C-4808-89FD-D1E7D41AF507}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C08F7E-326C-4808-89FD-D1E7D41AF507}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4C08F7E-326C-4808-89FD-D1E7D41AF507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85DF4BF9-6F96-4716-B933-EF2356515D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85DF4BF9-6F96-4716-B933-EF2356515D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85DF4BF9-6F96-4716-B933-EF2356515D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85DF4BF9-6F96-4716-B933-EF2356515D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
