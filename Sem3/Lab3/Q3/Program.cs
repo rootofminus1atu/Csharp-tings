@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            // Write a method named Zero that accepts an int array as an argument and stores the value 0 in each element.
+
             int[][] arrs =
             {
                 new int[] {1, 2},
@@ -15,7 +17,6 @@
             {
                 Console.WriteLine($"{arr.Stringify()} zero'd into {Zero(arr).Stringify()}");
             }
-
 
         }
 

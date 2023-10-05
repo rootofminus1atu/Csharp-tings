@@ -6,6 +6,7 @@
         {
             // Create a 2D array which has movie ratings for 3 films.
             // Each film has 3 reviews.  Output the average rating for each film.
+
             int[,] filmReviews =
             {
                 { 3, 4, 5 },

@@ -4,6 +4,9 @@
     {
         static void Main(string[] args)
         {
+            // Write a method
+            // That returns the sum of all even numbers between the two integer arguments (inclusive) passed to it.
+
             (int, int)[] cases = { (1, 5), (2, 10), (10, 2), (8, 9), (9, 8), (6, 6), (-3, 3) };
 
             foreach (var (n1, n2) in cases )

@@ -4,6 +4,10 @@
     {
         static void Main(string[] args)
         {
+            // Write a method that accepts a stock-on-hand figure and a sales figure as int arguments.
+            // It will update the stock-on-hand figure by deducting the sales figure if there is sufficient stock to fulfil the sale.
+            // The method shall return true if the stock-on-hand figure has been updated, otherwise false.
+
             int stock = 100;
 
             StockLevelDisplay(stock);

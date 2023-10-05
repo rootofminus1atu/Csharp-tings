@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            // As above (in Q6) but this time there is a jagged array.
+
             int[][] filmReviews =
             {
                 new int[] { 3, 4 },
