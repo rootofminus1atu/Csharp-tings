@@ -86,19 +86,12 @@
     {
         BoundaryValue Lower {  get; set; }
         BoundaryValue Upper { get; set; }
-        string StringRepr 
-        {
-            get => $"{Lower.GetBrackerLower}{Lower.Number}, {Upper.Number}{Upper.GetBrackerUpper()}";
-        }
 
-        public override string ToString()
-        {
-            return StringRepr;
-        }
+        
 
         private Interval() { }
 
-        private Interval(string str, BoundaryValue lower, BoundaryValue upper)
+        private Interval(BoundaryValue lower, BoundaryValue upper)
         {
             Lower = lower;
             Upper = upper;
@@ -116,7 +109,15 @@
 
             // but first make the StringRepr a bit prettier
 
-            return new Interval(str, lower, upper);
+            return new Interval(lower, upper);
         }
+
+        public override string ToString()
+        {
+            // add if else for the singleton case
+            return $"{Lower.GetBrackerLower}{Lower.Number}, {Upper.Number}{Upper.GetBrackerUpper()}";
+        }
+
+        // add all the other functions
     }
 }
