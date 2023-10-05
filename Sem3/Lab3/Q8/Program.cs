@@ -10,6 +10,8 @@ namespace Q8
             // Use a sentinel value of -1.  Store the names in a List<string> collection.
             // Output the names of the team in alphabetical order to the screen.
 
+            SortingTest();
+
             int counter = 0;
             List<string> players = new();
 

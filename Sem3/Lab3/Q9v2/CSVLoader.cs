@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace General_CSV_Loader
+namespace Q9v2
 {
     public class CSVParser
     {
-        // TODO: 
-        // go to Lab3 and check the todos from there
+        // TODO:
+        // CheckCounts improvement
 
         public readonly char delimeter;
         public readonly bool skip1stRow;
@@ -71,16 +70,17 @@ namespace General_CSV_Loader
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="contents"></param>
-        private void CheckCounts<T>(List<string> contents) 
-        { 
+        private void CheckCounts<T>(List<string> contents)
+        {
             var properties = typeof(T).GetProperties();
 
             int propertiesCount = properties.Length;
             int fieldsCount = contents[0].Split(this.delimeter).Length;
+            // todo: CHANGE THIS ABOVE to properly calculate the amount of fields, get that stored somewhere and display as a warning or error msg
 
             if (fieldsCount < propertiesCount)
             {
-                PropertyInfo[] unneededProps = properties[fieldsCount..];
+                PropertyInfo[] unneededProps = properties[fieldsCount..];  // add comments here
                 string[] unneededNames = unneededProps.Select(x => x.Name).ToArray();
                 string unneededNamesStr = string.Join(", ", unneededNames);
 
@@ -100,6 +100,7 @@ namespace General_CSV_Loader
         /// <returns>A List of objects of type <typeparamref name="T"/> representing the data from the CSV file.</returns>
         public List<T> IntoClass<T>(string filePath)
         {
+            // betteer name needed
             List<string> contents = LoadContents(filePath);
 
             CheckCounts<T>(contents);
@@ -109,12 +110,19 @@ namespace General_CSV_Loader
             return SafeConvertToList<T>(contents);
         }
 
+        /// <summary>
+        /// Converts a List<string> of contents into a List<typeparamref name="T"/>. It does so safely, aka if it cannot convert one of the values, it will skip that line completely.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="contents"></param>
+        /// <returns></returns>
         public List<T> SafeConvertToList<T>(List<string> contents)
         {
             List<T> objects = new List<T>();
 
             foreach (string line in contents)
             {
+                // better name (from csv line fore xample)
                 ConversionResult<T> result = ConversionResult<T>.FromCSVString(line, delimeter);
 
                 if (result.Success)
@@ -142,7 +150,7 @@ namespace General_CSV_Loader
 
         public bool Success => FaultyFields.Count() == 0;
 
-        public ConversionResult() 
+        public ConversionResult()
         {
             Object = Activator.CreateInstance<T>();
             FaultyFields = new List<string>();
@@ -170,12 +178,6 @@ namespace General_CSV_Loader
             property.SetValue(Object, value);
         }
 
-        /// <summary>
-        /// Converts a CSV string line into an object of type T.
-        /// </summary>
-        /// <param name="csvString">The CSV string to convert.</param>
-        /// <param name="delimiter">The delimiter used to separate CSV fields.</param>
-        /// <returns>An instance of <see cref="ConversionResult{T}"/> representing the result of the conversion.</returns>
         public static ConversionResult<T> FromCSVString(string csvString, char delimeter)
         {
             string[] csvFields = csvString.Split(delimeter);
@@ -200,13 +202,7 @@ namespace General_CSV_Loader
             return result;
         }
 
-        /// <summary>
-        /// Tries to convert a string value to a target type, handling exceptions and returning whether the conversion was successful.
-        /// </summary>
-        /// <param name="value">The string value to convert.</param>
-        /// <param name="targetType">The target data type for the conversion.</param>
-        /// <param name="convertedValue">The converted value (output parameter).</param>
-        /// <returns><c>true</c> if the conversion is successful, <c>false</c> otherwise.</returns>
+
         private static bool TryConvertValue(string value, Type targetType, out object convertedValue)
         {
             bool success;

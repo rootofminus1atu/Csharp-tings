@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Q7", "Q7\Q7.csproj", "{F310
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Q8", "Q8\Q8.csproj", "{A6700F42-6D03-4850-AFDC-AA003B6F6CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q9", "Q9\Q9.csproj", "{EDB9306A-7AC5-41A6-A550-94B88438CDEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Q9", "Q9\Q9.csproj", "{EDB9306A-7AC5-41A6-A550-94B88438CDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q9v2", "Q9v2\Q9v2.csproj", "{19805DF9-C9A7-4B9D-8E08-8C9174403543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{EDB9306A-7AC5-41A6-A550-94B88438CDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDB9306A-7AC5-41A6-A550-94B88438CDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDB9306A-7AC5-41A6-A550-94B88438CDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19805DF9-C9A7-4B9D-8E08-8C9174403543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19805DF9-C9A7-4B9D-8E08-8C9174403543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19805DF9-C9A7-4B9D-8E08-8C9174403543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19805DF9-C9A7-4B9D-8E08-8C9174403543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
