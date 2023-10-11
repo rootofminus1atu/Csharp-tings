@@ -31,6 +31,8 @@ namespace Q9v2
             {
                 Console.WriteLine("Loading file contents...");
 
+                // maybe use ReadAllLines instead of StreamWriter
+
                 using (StreamReader sr = File.OpenText(filePath))
                 {
                     // skipping the 1st row

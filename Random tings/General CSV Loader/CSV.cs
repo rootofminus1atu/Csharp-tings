@@ -98,7 +98,7 @@ namespace General_CSV_Loader
         /// <typeparam name="T">The class type to which each CSV record will be converted.</typeparam>
         /// <param name="filePath">The file path to the CSV file to be read.</param>
         /// <returns>A List of objects of type <typeparamref name="T"/> representing the data from the CSV file.</returns>
-        public List<T> IntoClass<T>(string filePath)
+        public List<T> ObjectListFromCSV<T>(string filePath)
         {
             List<string> contents = LoadContents(filePath);
 
@@ -115,7 +115,7 @@ namespace General_CSV_Loader
 
             foreach (string line in contents)
             {
-                ConversionResult<T> result = ConversionResult<T>.FromCSVString(line, delimeter);
+                ConversionResult<T> result = ConversionResult<T>.FromCSVLine(line, delimeter);
 
                 if (result.Success)
                 {
@@ -176,7 +176,7 @@ namespace General_CSV_Loader
         /// <param name="csvString">The CSV string to convert.</param>
         /// <param name="delimiter">The delimiter used to separate CSV fields.</param>
         /// <returns>An instance of <see cref="ConversionResult{T}"/> representing the result of the conversion.</returns>
-        public static ConversionResult<T> FromCSVString(string csvString, char delimeter)
+        public static ConversionResult<T> FromCSVLine(string csvString, char delimeter)
         {
             string[] csvFields = csvString.Split(delimeter);
             ConversionResult<T> result = new ConversionResult<T>();
