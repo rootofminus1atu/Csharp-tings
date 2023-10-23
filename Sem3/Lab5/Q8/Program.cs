@@ -7,6 +7,8 @@
             Console.WriteLine("Hello, World!");
 
             // cannot create Game objects anymore
+            ComputerGame g1 = new("best game", 100, DateTime.Now, 8);
+            Console.WriteLine(g1.ToString());
         }
     }
 
