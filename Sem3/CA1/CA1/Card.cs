@@ -87,6 +87,11 @@ namespace CA1
             return $"{Value} of {Suit}";
         }
 
+        public string GetDetails()
+        {
+            return $"Card dealt is the {this}, value {GetPoints()}";
+        }
+
         public int GetPoints()  // rename to get points
         {
             return Value switch
@@ -107,8 +112,8 @@ namespace CA1
 
         public static IEnumerable<ICardValue> GetNumberValues()
         {
-            var nums = from num in Enumerable.Range(Number.MIN_VAL, Number.MAX_VAL - 1) select new Number(num);
-            return nums;
+            return Enumerable.Range(Number.MIN_VAL, Number.MAX_VAL - 1)
+                .Select(num => new Number(num));
         }
     }
 }

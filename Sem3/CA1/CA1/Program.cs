@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Reflection;
 
 namespace CA1
 {
@@ -8,72 +9,123 @@ namespace CA1
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Card c1 = new(new Card.King(), Suit.Diamonds);
-            Console.WriteLine(c1);
+            
 
-            Deck d1 = new Deck();
-            Console.WriteLine(d1.Cards.Stringify());
-            d1.Shuffle();
-            Console.WriteLine(d1.Cards.Stringify());
+            Game g1 = new Game();
+            g1.Play();
 
-            Console.WriteLine("♥ ♣ ♦ ♠ ♤ ♡ ♧ ♢");
+
+            
         }
+    }
+
+    public enum StickOrTwist
+    {
+        Stick,
+        Twist
     }
 
     public class Game
     {
-        // contain dealer and player
-        // start and control game
+        public Player Player {  get; set; } = new Player();
+        public Dealer Dealer { get; set; } = new Dealer();
+
+        public Game()
+        {
+            
+        }
+
+        public void Play()
+        {
+            Console.WriteLine("new game start");
+
+            // get randomized deck
+            Deck deck = new Deck();
+            deck.Shuffle();
+
+            // take 2 cards for the player
+            Card card1 = Player.DrawTop(deck);
+            Card card2 = Player.DrawTop(deck);
+
+            Console.WriteLine(card1.GetDetails());
+            Console.WriteLine(card2.GetDetails());
+            Console.WriteLine($"Your score is {Player.Score}");
+
+            Console.WriteLine("Do you want to stick or twist? (s/t): ");
+            StickOrTwist? input = GetInput();
+                // .ToOption()
+                // .Map( apply st enum to char input, if not work, return none )
+                // 
+
+
+
+
+            // 2 cards for the dealer
+
+            // do some questioning etc
+            // update state
+        }
+
+        public StickOrTwist? GetInput()
+        {
+            string? input = Console.ReadLine();
+
+            if (input == null)
+                return null;
+
+            if (input.Length != 1)
+                return null;
+
+            // turn char into StickOrTwist.Stick or StickOrTwist.Twist
+            // return that
+        }
     }
 
     public class Player 
     {
-        
+        public int Score { get; set; } = 0;
+
+        public Card DrawTop(Deck deck)
+        {
+            Card card = deck.DrawTop();
+            Score += card.GetPoints();
+            return card;
+        }
     }
 
-    public class Dealer
+    public class Dealer : Player
     {
 
     }
 
 
-    public class Deck
+    
+    public class Testing
     {
-        public List<Card> Cards {  get; set; } = new();
-
-        public Deck()
+        public static void DeckDemo()
         {
-            foreach(Suit s in Enum.GetValues(typeof(Suit)))
-            {
-                // maybe we could use a card factory insted of static methods
+            Deck d1 = new();
+            d1.Shuffle();
 
-                foreach(Card.ICardValue val in Card.GetPictureValues())
-                {
-                    Cards.Add(new Card(val, s));
-                }
+            Console.WriteLine(d1.Cards.Stringify());
+            Console.WriteLine(d1.DiscardedCards.Stringify());
 
-                foreach(Card.ICardValue num in Card.GetNumberValues())
-                {
-                    Cards.Add(new Card(num, s));
-                }
-            }
+            Card c = d1.DrawBottom();
+            Console.WriteLine(c);
+
+            Console.WriteLine(d1.Cards.Stringify());
+            Console.WriteLine(d1.DiscardedCards.Stringify());
+
+            Console.WriteLine("♥ ♣ ♦ ♠ ♤ ♡ ♧ ♢");
         }
 
-        public void Shuffle()
+        public static void CardDemo()
         {
-            var rand = new Random();
-            Cards = Cards.OrderBy(c => rand.Next()).ToList();
+            Card c1 = new(new Card.King(), Suit.Diamonds);
+            Console.WriteLine(c1);
         }
     }
 
-
-
-
-
-
-    
-
-    
 
 
     public static class ListExtension
