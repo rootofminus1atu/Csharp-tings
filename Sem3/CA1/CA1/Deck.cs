@@ -17,14 +17,9 @@ namespace CA1
             {
                 // maybe we could use a card factory insted of static methods
 
-                foreach (Card.ICardValue val in Card.GetPictureValues())
+                foreach (IRank rank in Card.GetAllRanks())
                 {
-                    Cards.Add(new Card(val, s));
-                }
-
-                foreach (Card.ICardValue num in Card.GetNumberValues())
-                {
-                    Cards.Add(new Card(num, s));
+                    Cards.Add(new Card(rank, s));
                 }
             }
         }

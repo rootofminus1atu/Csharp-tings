@@ -14,106 +14,98 @@ namespace CA1
         Clubs
     }
 
+    public abstract class IRank
+    {
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
+    }
+
+    public class Ace : IRank { }
+    public class King : IRank { }
+    public class Queen : IRank { }
+    public class Jack : IRank { }
+    public class Number : IRank
+    {
+        public const int MAX_VALUE = 10;
+        public const int MIN_VALUE = 2;
+
+        private int _value;
+        public int Value
+        {
+            get => _value;
+            set
+            {
+                if (value < MIN_VALUE || value > MAX_VALUE)
+                {
+                    throw new ArgumentOutOfRangeException($"A card's number value must be between {MIN_VALUE} and {MAX_VALUE}");
+                }
+                _value = value;
+            }
+        }
+
+        public Number(int Rank)
+        {
+            Value = Rank;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value}";
+        }
+    }
+
     public class Card
     {
-        public ICardValue Value { get; set; }
+        public IRank Rank { get; set; }
         public Suit Suit { get; set; }
 
 
-
-        public interface ICardValue { }
-
-        public class Ace : ICardValue
-        {
-            public override string ToString()
-            {
-                return "Ace";
-            }
-        }
-
-        public class King : ICardValue
-        {
-            public override string ToString()
-            {
-                return "King";
-            }
-        }
-        public class Queen : ICardValue
-        {
-            public override string ToString()
-            {
-                return "Queen";
-            }
-        }
-
-        public class Jack : ICardValue
-        {
-            public override string ToString()
-            {
-                return "Jack";
-            }
-        }
-
-        public class Number : ICardValue
-        {
-            public const int MAX_VAL = 10;
-            public const int MIN_VAL = 2;
-
-            public int Val { get; set; }
-
-            public Number(int value)
-            {
-                Val = value;
-            }
-
-            public override string ToString()
-            {
-                return $"{Val}";
-            }
-        }
-
-
-
-
-        public Card(ICardValue name, Suit suit)
+        public Card(IRank name, Suit suit)
         {
             // do a check for valid card here and throw exception maybe
-            Value = name;
+            Rank = name;
             Suit = suit;
         }
 
         public override string ToString()
         {
-            return $"{Value} of {Suit}";
+            return $"{Rank} of {Suit}";
         }
 
         public string GetDetails()
         {
-            return $"Card dealt is the {this}, value {GetPoints()}";
+            return $"Card dealt is the {this}, Rank {GetPoints()}";
         }
 
         public int GetPoints()  // rename to get points
         {
-            return Value switch
+            return Rank switch
             {
                 Ace => 11,
                 King or Queen or Jack => 10,
-                Number { Val: int n } when n >= 2 && n <= 10 => n,
-                _ => throw new Exception("No value for this card")
+                Number { Value: int n } => n,
+                _ => throw new Exception("No Rank for this card")
             };
         }
 
 
-
-        public static List<ICardValue> GetPictureValues()
+        public static IEnumerable<IRank> GetPictureRanks()
         {
-            return new List<ICardValue>() { new Ace(), new King(), new Queen(), new Jack() };
+            return new List<IRank>() { new Ace(), new King(), new Queen(), new Jack() };
         }
 
-        public static IEnumerable<ICardValue> GetNumberValues()
+        public static IEnumerable<IRank> GetNumberRanks()
         {
-            return Enumerable.Range(Number.MIN_VAL, Number.MAX_VAL - 1)
+            return Enumerable
+                .Range(Number.MIN_VALUE, Number.MAX_VALUE - 1)
                 .Select(num => new Number(num));
+        }
+
+        public static IEnumerable<IRank> GetAllRanks()
+        {
+            return GetNumberRanks().Concat(GetPictureRanks());
         }
     }
 }
