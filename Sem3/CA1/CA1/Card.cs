@@ -76,7 +76,7 @@ namespace CA1
 
         public string GetDetails()
         {
-            return $"Card dealt is the {this}, Rank {GetPoints()}";
+            return $"Card dealt is the {this}, worth {GetPoints()}";
         }
 
         public int GetPoints()  // rename to get points
@@ -86,7 +86,7 @@ namespace CA1
                 Ace => 11,
                 King or Queen or Jack => 10,
                 Number { Value: int n } => n,
-                _ => throw new Exception("No Rank for this card")
+                _ => throw new Exception("No points for this card")
             };
         }
 

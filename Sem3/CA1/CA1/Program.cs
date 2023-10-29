@@ -25,36 +25,128 @@ namespace CA1
         Twist
     }
 
+    public enum GameState
+    {
+        NewGame,
+        PlayerTurn,
+        DealerTurn,
+        GameOver
+    }
+
+    public enum GameResult
+    {
+        PlayerBust,
+        DealerBust,
+        Draw,
+        PlayerWins,
+        DealerWins
+    }
+
+    public class ConsoleGame : Game
+    {
+        public void WhenPlayerDraw(Card card)
+        {
+            Console.WriteLine($"Card dealt is {card}, worth {card.GetPoints()}");
+            Console.WriteLine($"Your score is {Player.Score}");
+        }
+
+
+
+    }
+
+
     public class Game
     {
         public Player Player {  get; set; } = new Player();
         public Dealer Dealer { get; set; } = new Dealer();
-        public Player? Winner { get; set; } = null;
+        public Deck Deck { get; set; } = new Deck();
+        public GameState GameState { get; set; } = GameState.NewGame;
+        public GameResult GameResult { get; private set; }
+
 
 
         public Game() { }
 
         public void Play()
         {
+            // setup
             Console.WriteLine("new game start");
+            Deck.Shuffle();
 
-            // get randomized deck
-            Deck deck = new();
-            deck.Shuffle();
+            GameState = GameState.PlayerTurn;
 
-            // take 2 cards for the player
-            Card card1 = Player.DrawTop(deck);
-            Card card2 = Player.DrawTop(deck);
+            while (GameState != GameState.GameOver)
+            {
+                switch (GameState)
+                {
+                    case GameState.PlayerTurn:
+                        HandlePlayerTurn();
+                        break;
+                    case GameState.DealerTurn:
+                        HandleDealerTurn();
+                        break;
+                }
+            }
 
-            Console.WriteLine(card1.GetDetails());
-            Console.WriteLine(card2.GetDetails());
+            // end
+            Console.WriteLine("Final scores:");
+            Console.WriteLine($"Your score is {Player.Score}");
+            Console.WriteLine($"Dealer's score is {Dealer.Score}");
+
+            DetermineWinner();
+
+            string resultMessage = GameResult switch
+            {
+                GameResult.PlayerWins => "Player wins!",
+                GameResult.DealerWins => "Dealer wins!",
+                GameResult.Draw => "It's a draw!",
+                GameResult.PlayerBust => "Dealer wins - Player busts",
+                GameResult.DealerBust => "Player wins - Dealer busts",
+                _ => "Invalid game result"
+            };
+
+            Console.WriteLine(resultMessage);
+
+
+
+        }
+
+        public void DetermineWinner()
+        {
+            if (Player.Bust)
+            {
+                GameResult = GameResult.PlayerBust;
+            }
+            else if (Dealer.Bust)
+            {
+                GameResult = GameResult.DealerBust;
+            }
+            else if (Player.Score == Dealer.Score)
+            {
+                GameResult = GameResult.Draw;
+            }
+            else if (Player.Score > Dealer.Score)
+            {
+                GameResult = GameResult.PlayerWins;
+            }
+            else
+            {
+                GameResult = GameResult.DealerWins;
+            }
+        }
+
+        public void HandlePlayerTurn()
+        {
+            Card card1 = Player.DrawTop(Deck); 
+            Console.WriteLine($"Card dealt is {card1}, worth {card1.GetPoints()}");
+            Console.WriteLine($"Your score is {Player.Score}");
+            Card card2 = Player.DrawTop(Deck);
+            Console.WriteLine($"Card dealt is {card2}, worth {card2.GetPoints()}");
             Console.WriteLine($"Your score is {Player.Score}");
 
-            while (!Player.Bust && !Player.Got21 && Player.IsTwisting)
+            while (!Player.Bust && !Player.GotBlackjack && Player.IsTwisting)
             {
-                // this part can change based on the context
-                StickOrTwist input = KeepAskingForInput();
-                // this above
+                StickOrTwist input = StickOrTwistInput();
 
                 Player.StickOrTwist = input;
 
@@ -63,48 +155,48 @@ namespace CA1
                     break;
                 }
 
-                Card anotherCard = Player.DrawTop(deck);
-                // Card anotherCard = Player.TestGetCard(new Card(new Ace(), Suit.Spades));
-
-                Console.WriteLine(anotherCard.GetDetails());
+                Card anotherCard = Player.DrawTop(Deck);
+                Console.WriteLine($"Card dealt is {anotherCard}, worth {anotherCard.GetPoints()}");
                 Console.WriteLine($"Your score is {Player.Score}");
             }
 
-            if (Player.Got21)
+            if (Player.GotBlackjack)
             {
                 Console.WriteLine("Woohoo you won!");
+                GameState = GameState.GameOver;
                 return;
             }
 
             if (Player.Bust)
             {
                 Console.WriteLine("Oh no you bust :(");
+                GameState = GameState.GameOver;
                 return;
             }
 
+            GameState = GameState.DealerTurn;
+        }
 
+        public void HandleDealerTurn()
+        {
             while (Dealer.Score < Player.Score && Dealer.HasToTake)
             {
-                Card card = Dealer.DrawTop(deck);
+                Card card = Dealer.DrawTop(Deck);
 
                 Console.WriteLine(card.GetDetails());
                 Console.WriteLine($"Dealer's score is {Dealer.Score}");
             }
 
-            Console.WriteLine("Final scores:");
-            Console.WriteLine($"Your score is {Player.Score}");
-            Console.WriteLine($"Dealer's score is {Dealer.Score}");
+            if (Dealer.Bust)
+            {
+                Console.WriteLine("Dealer bust...");
+                GameState = GameState.GameOver;
+            }
 
-            DetermineWinner();
-
+            GameState = GameState.GameOver;
         }
 
-        public DetermineWinner()
-        {
-            // what should it accept, what should it return, should it return anything
-        }
-
-        public static StickOrTwist KeepAskingForInput()
+        public StickOrTwist StickOrTwistInput()
         {
             Console.WriteLine("Do you want to stick or twist? (s/t): ");
 
@@ -129,6 +221,7 @@ namespace CA1
                 _ => null
             };
         }
+
     }
 
     public class Player 
@@ -137,7 +230,7 @@ namespace CA1
 
         public int Score { get; set; } = 0;
         public bool Bust => Score > MAX_SCORE;
-        public bool Got21 => Score == MAX_SCORE;
+        public bool GotBlackjack => Score == MAX_SCORE;
 
         public StickOrTwist StickOrTwist { get; set; } = StickOrTwist.Twist;
         public bool IsTwisting => this.StickOrTwist == StickOrTwist.Twist;
