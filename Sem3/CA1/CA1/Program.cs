@@ -60,7 +60,7 @@ namespace CA1
         public Player Player {  get; set; } = new Player();
         public Dealer Dealer { get; set; } = new Dealer();
         public Deck Deck { get; set; } = new Deck();
-        public GameState GameState { get; set; } = GameState.NewGame;
+        public GameState GameState { get; private set; } = GameState.NewGame;
         public GameResult GameResult { get; private set; }
 
 
