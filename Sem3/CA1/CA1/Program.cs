@@ -7,273 +7,139 @@ namespace CA1
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Card c = new(new Number(10), Suit.Diamonds);
+
+
+            int width = 11;
+            string word = "HELLO";
+
+            // Padding on the left
+            string leftPaddedString = word.PadLeft(width, '_');
+
+            // Padding on the right
+            string rightPaddedString = word.PadRight(width, '_');
+
+            Console.WriteLine(leftPaddedString);
+            Console.WriteLine(rightPaddedString);
 
 
 
-            Game g1 = new Game();
-            g1.Play();
+            Console.WriteLine(InsertWithLeftSpace("_____", "HI", 2));
+            Console.WriteLine(InsertWithLeftSpace2("_____", "HI", 2));
+            Console.WriteLine();
 
 
-
-        }
-    }
-
-    public enum StickOrTwist
-    {
-        Stick,
-        Twist
-    }
-
-    public enum GameState
-    {
-        NewGame,
-        PlayerTurn,
-        DealerTurn,
-        GameOver
-    }
-
-    public enum GameResult
-    {
-        PlayerBust,
-        DealerBust,
-        Draw,
-        PlayerWins,
-        DealerWins
-    }
-
-    public class ConsoleGame : Game
-    {
-        public void WhenPlayerDraw(Card card)
-        {
-            Console.WriteLine($"Card dealt is {card}, worth {card.GetPoints()}");
-            Console.WriteLine($"Your score is {Player.Score}");
+            // DrawAt(10, 10, c.GetDrawing());
+            DrawCard(2, 5, c);
+            DrawCard(20, 5, c);
         }
 
-
-
-    }
-
-
-    public class Game
-    {
-        public Player Player {  get; set; } = new Player();
-        public Dealer Dealer { get; set; } = new Dealer();
-        public Deck Deck { get; set; } = new Deck();
-        public GameState GameState { get; private set; } = GameState.NewGame;
-        public GameResult GameResult { get; private set; }
-
-
-
-        public Game() { }
-
-        public void Play()
+        public static string InsertWithLeftSpace2(string slate, string thing, int space)
         {
-            // setup
-            Console.WriteLine("new game start");
-            Deck.Shuffle();
+            string total = "";
 
-            GameState = GameState.PlayerTurn;
+            // ok maybe not
+            char[] slateArr = slate.ToCharArray();
+            // Console.WriteLine(thing.ToCharArray().Prepend('\0');
 
-            while (GameState != GameState.GameOver)
+
+            return "";
+        }
+
+        public static string InsertWithLeftSpace(string slate, string inserted, int space)
+        {
+            string total = "";
+
+            int j = 0;
+
+            for (int i = 0; i < slate.Length; i++)
             {
-                switch (GameState)
+                if (i >= space && j < inserted.Length)
                 {
-                    case GameState.PlayerTurn:
-                        HandlePlayerTurn();
-                        break;
-                    case GameState.DealerTurn:
-                        HandleDealerTurn();
-                        break;
+                    total += inserted[j];
+                    j++;
+                }
+                else
+                {
+                    total += slate[i];
                 }
             }
 
-            // end
-            Console.WriteLine("Final scores:");
-            Console.WriteLine($"Your score is {Player.Score}");
-            Console.WriteLine($"Dealer's score is {Dealer.Score}");
-
-            DetermineWinner();
-
-            string resultMessage = GameResult switch
-            {
-                GameResult.PlayerWins => "Player wins!",
-                GameResult.DealerWins => "Dealer wins!",
-                GameResult.Draw => "It's a draw!",
-                GameResult.PlayerBust => "Dealer wins - Player busts",
-                GameResult.DealerBust => "Player wins - Dealer busts",
-                _ => "Invalid game result"
-            };
-
-            Console.WriteLine(resultMessage);
-
-
-
+            return total;
         }
 
-        public void DetermineWinner()
+        public static void DrawCard(int x, int y, Card card)
         {
-            if (Player.Bust)
-            {
-                GameResult = GameResult.PlayerBust;
-            }
-            else if (Dealer.Bust)
-            {
-                GameResult = GameResult.DealerBust;
-            }
-            else if (Player.Score == Dealer.Score)
-            {
-                GameResult = GameResult.Draw;
-            }
-            else if (Player.Score > Dealer.Score)
-            {
-                GameResult = GameResult.PlayerWins;
-            }
-            else
-            {
-                GameResult = GameResult.DealerWins;
-            }
-        }
+            const int WIDTH = 11;
+            const int HEIGHT = 9;
 
-        public void HandlePlayerTurn()
-        {
-            Card card1 = Player.DrawTop(Deck); 
-            Console.WriteLine($"Card dealt is {card1}, worth {card1.GetPoints()}");
-            Console.WriteLine($"Your score is {Player.Score}");
-            Card card2 = Player.DrawTop(Deck);
-            Console.WriteLine($"Card dealt is {card2}, worth {card2.GetPoints()}");
-            Console.WriteLine($"Your score is {Player.Score}");
+            string rankInitial = card.Rank.GetInitial();
+            string suitIcon = card.Suit.Icon();
+            ConsoleColor fg = card.Suit.Color();
+            ConsoleColor bg = ConsoleColor.White;
 
-            while (!Player.Bust && !Player.GotBlackjack && Player.IsTwisting)
+            // isolate this below
+            var rankIndex1 = (1, 0);
+            var rankIndex2 = (WIDTH - 2, HEIGHT - 1);
+            var suitIndex = (WIDTH / 2, HEIGHT / 2);
+            List<(int, int)> rankIndeces = new() { rankIndex1, rankIndex2 };
+            List<(int, int)> suitIndeces = new() { suitIndex };
+
+            // replace with more efficient string blank slate
+            /*
+            for (int i = 0; i < WIDTH; i++)
             {
-                StickOrTwist input = StickOrTwistInput();
-
-                Player.StickOrTwist = input;
-
-                if (Player.IsSticking)
+                for (int j = 0; j < HEIGHT; j++)
                 {
-                    break;
-                }
+                    string thingToDraw = (i, j) switch
+                    {
+                        _ when (i, j) == rankIndex1 => rankInitial,
+                        _ when (i, j) == rankIndex2 => rankInitial,
+                        _ when (i, j) == suitIndex => suitIcon,
+                        _ => " "
+                    };
 
-                Card anotherCard = Player.DrawTop(Deck);
-                Console.WriteLine($"Card dealt is {anotherCard}, worth {anotherCard.GetPoints()}");
-                Console.WriteLine($"Your score is {Player.Score}");
-            }
-
-            if (Player.GotBlackjack)
-            {
-                Console.WriteLine("Woohoo you won!");
-                GameState = GameState.GameOver;
-                return;
-            }
-
-            if (Player.Bust)
-            {
-                Console.WriteLine("Oh no you bust :(");
-                GameState = GameState.GameOver;
-                return;
-            }
-
-            GameState = GameState.DealerTurn;
-        }
-
-        public void HandleDealerTurn()
-        {
-            while (Dealer.Score < Player.Score && Dealer.HasToTake)
-            {
-                Card card = Dealer.DrawTop(Deck);
-
-                Console.WriteLine(card.GetDetails());
-                Console.WriteLine($"Dealer's score is {Dealer.Score}");
-            }
-
-            if (Dealer.Bust)
-            {
-                Console.WriteLine("Dealer bust...");
-                GameState = GameState.GameOver;
-            }
-
-            GameState = GameState.GameOver;
-        }
-
-        public StickOrTwist StickOrTwistInput()
-        {
-            Console.WriteLine("Do you want to stick or twist? (s/t): ");
-
-            StickOrTwist? input = null;
-            while (!input.HasValue)
-            {
-                input = AskForInput();
-            }
-
-            return input.Value;
-        }
-
-        public static StickOrTwist? AskForInput()
-        {
-            Console.Write("> ");
-            string? input = Console.ReadLine()?.ToLower();
-
-            return input switch
-            {
-                "s" => StickOrTwist.Stick,
-                "t" => StickOrTwist.Twist,
-                _ => null
-            };
-        }
-
-    }
-
-    public class Player 
-    {
-        public const int MAX_SCORE = 21;
-
-        public int Score { get; set; } = 0;
-        public bool Bust => Score > MAX_SCORE;
-        public bool GotBlackjack => Score == MAX_SCORE;
-
-        public StickOrTwist StickOrTwist { get; set; } = StickOrTwist.Twist;
-        public bool IsTwisting => this.StickOrTwist == StickOrTwist.Twist;
-        public bool IsSticking => !IsTwisting;
-        
-        
-
-        public Card DrawTop(Deck deck)
-        {
-            Card card = deck.DrawTop();
-            AddPoints(card);
-            return card;
-        }
-
-        public Card TestGetCard(Card card)
-        {
-            AddPoints(card);
-            return card;
-        }
-
-        private void AddPoints(Card card)
-        {
-            if (card.Rank is Ace)
-            {
-                if (Score +  card.GetPoints() > MAX_SCORE)
-                {
-                    // special value
-                    Score += 1;
-                    Console.WriteLine("Ace counted as 1 instead of 11");
-                    return;
+                    DrawAt(x + i, y + j, thingToDraw, bg, fg);
                 }
             }
+            */
 
-            Score += card.GetPoints();
+
+
+            foreach (var (i, j) in suitIndeces)
+            {
+                DrawAt(x + i, y + j, suitIcon, bg, fg);
+            }
+
+            foreach (var (i, j) in  rankIndeces)
+            {
+                DrawAt(x + i, y + j, rankInitial, bg, fg);
+            }
+
+            
+
+        }
+
+        public static void DrawAt(int x, int y, string thing, ConsoleColor bg = ConsoleColor.Black, ConsoleColor fg = ConsoleColor.Gray)
+        {
+            string[] chunks = thing.Split('\n');
+
+            Console.BackgroundColor = bg;
+            Console.ForegroundColor = fg;
+
+            for (int i = 0; i < chunks.Length; i++)
+            {
+                string chunk = chunks[i];
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(chunk);
+            }
+
+            Console.ResetColor();
         }
     }
 
-    public class Dealer : Player
-    {
-        const int DEALER_CUTOFF = 17;
-        
-        public bool HasToTake => Score < DEALER_CUTOFF;
-    }
+
+
 
 
     
@@ -310,7 +176,7 @@ namespace CA1
 
     public static class ListExtension
     {
-        public static string Stringify<T>(this List<T> list)
+        public static string Stringify<T>(this IEnumerable<T> list)
         {
             return $"[ {string.Join(", ", list)} ]";
         }

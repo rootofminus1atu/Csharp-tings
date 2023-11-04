@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace CA1
 {
@@ -14,11 +15,43 @@ namespace CA1
         Clubs
     }
 
+    public static class SuitExtension
+    {
+        public static string Icon(this Suit suit)
+        {
+            return suit switch
+            {
+                Suit.Diamonds => "♦",
+                Suit.Hearts => "♥",
+                Suit.Spades => "♠",
+                Suit.Clubs => "♣",
+                _ => ""
+            };
+        }
+
+        public static ConsoleColor Color(this Suit suit)
+        {
+            return suit switch
+            {
+                Suit.Diamonds => ConsoleColor.Red,
+                Suit.Hearts => ConsoleColor.Red,
+                Suit.Spades => ConsoleColor.Black,
+                Suit.Clubs => ConsoleColor.Black,
+                _ => ConsoleColor.Black,
+            };
+        }
+    }
+
     public abstract class IRank
     {
         public override string ToString()
         {
             return GetType().Name;
+        }
+
+        public virtual string GetInitial()
+        {
+            return GetType().Name[0].ToString();
         }
     }
 
@@ -54,6 +87,11 @@ namespace CA1
         {
             return $"{Value}";
         }
+
+        public override string GetInitial()
+        {
+            return ToString();
+        }
     }
 
     public class Card
@@ -77,6 +115,25 @@ namespace CA1
         public string GetDetails()
         {
             return $"Card dealt is the {this}, worth {GetPoints()}";
+        }
+
+        public string GetDrawing()
+        {
+            const int WIDTH = 5;
+            const int HEIGHT = 7;
+
+            StringBuilder total = new();
+
+            for (int i = 0; i < WIDTH; i++)
+            {
+                for (int j = 0; j < HEIGHT; j++)
+                {
+                    total.Append('O');
+                }
+                total.Append('\n');
+            }
+
+            return total.ToString();
         }
 
         public int GetPoints()  // rename to get points
