@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CA1
 {
@@ -7,117 +9,50 @@ namespace CA1
     {
         static void Main(string[] args)
         {
-            Card c = new(new Number(10), Suit.Diamonds);
-
-
-            int width = 11;
-            string word = "HELLO";
-
-            // Padding on the left
-            string leftPaddedString = word.PadLeft(width, '_');
-
-            // Padding on the right
-            string rightPaddedString = word.PadRight(width, '_');
-
-            Console.WriteLine(leftPaddedString);
-            Console.WriteLine(rightPaddedString);
-
-
-
-            Console.WriteLine(InsertWithLeftSpace("_____", "HI", 2));
-            Console.WriteLine(InsertWithLeftSpace2("_____", "HI", 2));
-            Console.WriteLine();
-
+            Card cc = new(new Number(10), Suit.Diamonds);
 
             // DrawAt(10, 10, c.GetDrawing());
-            DrawCard(2, 5, c);
-            DrawCard(20, 5, c);
+            DrawCard(2, 5, cc);
+            DrawCard(20, 5, cc);
+
+
+
+
+
+            Console.WriteLine("XX".InsertIntoStringWithPadRight("abcdef", 1));
         }
 
-        public static string InsertWithLeftSpace2(string slate, string thing, int space)
-        {
-            string total = "";
-
-            // ok maybe not
-            char[] slateArr = slate.ToCharArray();
-            // Console.WriteLine(thing.ToCharArray().Prepend('\0');
 
 
-            return "";
-        }
 
-        public static string InsertWithLeftSpace(string slate, string inserted, int space)
-        {
-            string total = "";
-
-            int j = 0;
-
-            for (int i = 0; i < slate.Length; i++)
-            {
-                if (i >= space && j < inserted.Length)
-                {
-                    total += inserted[j];
-                    j++;
-                }
-                else
-                {
-                    total += slate[i];
-                }
-            }
-
-            return total;
-        }
 
         public static void DrawCard(int x, int y, Card card)
         {
-            const int WIDTH = 11;
-            const int HEIGHT = 9;
+            const int WIDTH = 9;
+            const int HEIGHT = 7;
 
             string rankInitial = card.Rank.GetInitial();
             string suitIcon = card.Suit.Icon();
             ConsoleColor fg = card.Suit.Color();
             ConsoleColor bg = ConsoleColor.White;
 
-            // isolate this below
-            var rankIndex1 = (1, 0);
-            var rankIndex2 = (WIDTH - 2, HEIGHT - 1);
-            var suitIndex = (WIDTH / 2, HEIGHT / 2);
-            List<(int, int)> rankIndeces = new() { rankIndex1, rankIndex2 };
-            List<(int, int)> suitIndeces = new() { suitIndex };
 
-            // replace with more efficient string blank slate
-            /*
-            for (int i = 0; i < WIDTH; i++)
+            for (int i = 0; i < HEIGHT; i++)
             {
-                for (int j = 0; j < HEIGHT; j++)
-                {
-                    string thingToDraw = (i, j) switch
-                    {
-                        _ when (i, j) == rankIndex1 => rankInitial,
-                        _ when (i, j) == rankIndex2 => rankInitial,
-                        _ when (i, j) == suitIndex => suitIcon,
-                        _ => " "
-                    };
-
-                    DrawAt(x + i, y + j, thingToDraw, bg, fg);
-                }
-            }
-            */
-
-
-
-            foreach (var (i, j) in suitIndeces)
-            {
-                DrawAt(x + i, y + j, suitIcon, bg, fg);
+                DrawAt(x, y + i, " ".Repeat(WIDTH), bg, fg);
             }
 
-            foreach (var (i, j) in  rankIndeces)
-            {
-                DrawAt(x + i, y + j, rankInitial, bg, fg);
-            }
+            // drawing the 1st row
+            DrawAt(x, y, rankInitial.InsertIntoStringWithPadLeft(" ".Repeat(WIDTH), 1), bg, fg);
 
-            
+            // drawing the last row
+            DrawAt(x, y + HEIGHT - 1, rankInitial.InsertIntoStringWithPadRight(" ".Repeat(WIDTH), 1), bg, fg);
 
+            // draw the suit in the center
+            DrawAt(x + WIDTH / 2, y + HEIGHT / 2, suitIcon, bg, fg);
+
+            // reset cursor position for the future
+            Console.SetCursorPosition(x + WIDTH, y + HEIGHT - 1);
         }
 
         public static void DrawAt(int x, int y, string thing, ConsoleColor bg = ConsoleColor.Black, ConsoleColor fg = ConsoleColor.Gray)
@@ -180,6 +115,45 @@ namespace CA1
         {
             return $"[ {string.Join(", ", list)} ]";
         }
+    }
+
+    public static class StringExtension
+    {
+        public static string InsertIntoStringWithPadLeft(this string str, string slate, int pad)
+        {
+            int howMuchRemove = Math.Min(str.Length, slate.Length - pad);
+
+            string strLimited = str[..howMuchRemove];
+
+
+            var slateSB = new StringBuilder(slate);
+            slateSB.Remove(pad, howMuchRemove);
+            slateSB.Insert(pad, strLimited);
+
+            return slateSB.ToString();
+        }
+
+        public static string Repeat(this string str, int n)
+        {
+            return Enumerable.Repeat(str, n).Aggregate("", (acc, c) => acc + c);
+        }
+
+
+        public static string InsertIntoStringWithPadRight(this string str, string slate, int pad)
+        {
+            int howMuchRemove = Math.Min(str.Length, slate.Length - pad);
+
+            string strLimited = str[^howMuchRemove..];
+
+
+            var slateSB = new StringBuilder(slate);
+            int where = slate.Length - pad - howMuchRemove;
+            slateSB.Remove(where, howMuchRemove);
+            slateSB.Insert(where, strLimited);
+
+            return slateSB.ToString();
+        }
+
     }
 
 }

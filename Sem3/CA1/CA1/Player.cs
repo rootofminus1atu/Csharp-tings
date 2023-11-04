@@ -4,15 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// TODO:
+// change the Player to instead have a list of cards
+
 namespace CA1
 {
     public class Player
     {
         public const int MAX_SCORE = 21;
 
-        public int Score { get; set; } = 0;
-        public bool Bust => Score > MAX_SCORE;
-        public bool GotBlackjack => Score == MAX_SCORE;
+        public List<Card> Cards { get; set; } = new();
+
+        public int Points => GetPoints();
+
+
+        public bool Bust => Points > MAX_SCORE;
+        public bool GotBlackjack => Points == MAX_SCORE;
 
         public StickOrTwist StickOrTwist { get; set; } = StickOrTwist.Twist;
         public bool IsTwisting => this.StickOrTwist == StickOrTwist.Twist;
@@ -23,16 +30,38 @@ namespace CA1
         public Card DrawTop(Deck deck)
         {
             Card card = deck.DrawTop();
-            AddPoints(card);
+            Cards.Add(card);
             return card;
         }
 
         public Card TestGetCard(Card card)
         {
-            AddPoints(card);
+            Cards.Add(card);
             return card;
         }
 
+        private int GetPoints()
+        {
+            const int ACE_ALT_POINTS = 1;
+
+            int total = 0;
+
+            foreach(Card card in Cards)
+            {
+                if (card.Rank is Ace && total + card.GetPoints() > MAX_SCORE)
+                {
+                    total += ACE_ALT_POINTS;
+                }
+                else
+                {
+                    total += card.GetPoints();
+                }
+                    
+            }
+
+            return total;
+        }
+        /*
         private void AddPoints(Card card)
         {
             if (card.Rank is Ace)
@@ -48,13 +77,14 @@ namespace CA1
 
             Score += card.GetPoints();
         }
+        */
     }
 
     public class Dealer : Player
     {
         const int DEALER_CUTOFF = 17;
 
-        public bool HasToTake => Score < DEALER_CUTOFF;
+        public bool HasToTake => Points < DEALER_CUTOFF;
     }
 
 }
