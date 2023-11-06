@@ -14,6 +14,7 @@ namespace CA1
         public Deck()
         {
             InitializeDeck();
+            Shuffle();
         }
 
         public void Reset()
@@ -21,6 +22,7 @@ namespace CA1
             Cards.Clear();
             DiscardedCards.Clear();
             InitializeDeck();
+            Shuffle();
         }
 
         public void InitializeDeck()

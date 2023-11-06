@@ -15,6 +15,9 @@ namespace CA1
 
         public List<Card> Cards { get; set; } = new();
 
+        public List<string> CardStrings => Cards.Select(c => c.ToStringShort()).ToList();
+        public string AllCardsString => string.Join(", ", CardStrings);
+
         public int Points => GetPoints();
         public bool Bust => Points > MAX_POINTS;
         public bool GotBlackjack => Points == MAX_POINTS;

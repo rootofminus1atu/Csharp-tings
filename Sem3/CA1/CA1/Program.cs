@@ -11,10 +11,6 @@ namespace CA1
         {
             Card cc = new(new Number(10), Suit.Clubs);
 
-            DrawCard(2, 2, cc);
-
-
-
 
             Game g = new Game();
             g.Play();
@@ -23,24 +19,64 @@ namespace CA1
 
         public class Game : GameLogic
         {
+            public void Render()
+            {
+                DrawAt(0, 0, $"Dealer ({Dealer.Points}) {Dealer.AllCardsString}");
+                for (int i = 0; i < Dealer.Cards.Count(); i++)
+                {
+                    DrawCard((i + 1) * 12, 0 + 2, Dealer.Cards[i]);
+                }
+
+                DrawAt(0, 11, $"Player ({Player.Points}) {Player.AllCardsString}");
+                for (int i = 0; i < Player.Cards.Count(); i++)
+                {
+                    DrawCard((i + 1) * 12, 11 + 2, Player.Cards[i]);
+                }
+            }
+
             public override void HandleSetup()
             {
                 Console.WriteLine("Setup");
+
+                // initial render with the cards
+
+                Player.DrawTop(Deck);
+                Player.DrawTop(Deck);
+                Dealer.DrawTop(Deck);
+
+                Render();
+
+                Console.ReadKey();
+
+                Dealer.DrawTop(Deck);
+
+                Render();
+
+                
+
             }
 
             public override void HandlePlayerTurn()
             {
                 Console.WriteLine("Player turn");
+
+                // ask the player and render the card, keep asking and drawing
             }
+
+            // keep updating the scores as the cards appear
 
             public override void HandleDealerTurn()
             {
                 Console.WriteLine("Dealer turn");
+
+                // uncover the delaer's card... or maybe just keep drawing the cards he draws
             }
 
             public override void HandleCleanup()
             {
                 Console.WriteLine("Cleanup");
+
+                // show result
             }
         }
 
@@ -147,7 +183,7 @@ namespace CA1
                 {
                     Card card = Dealer.DrawTop(Deck);
 
-                    Console.WriteLine(card.GetDetails());
+                    Console.WriteLine(card.ToStringLong());
                     Console.WriteLine($"Dealer's score is {Dealer.Points}");
                 }
 
@@ -196,7 +232,7 @@ namespace CA1
             const int WIDTH = 9;
             const int HEIGHT = 7;
 
-            string rankInitial = card.Rank.GetInitial();
+            string rankInitial = card.Rank.Initial();
             string suitIcon = card.Suit.Icon();
             ConsoleColor fg = card.Suit.Color();
             ConsoleColor bg = ConsoleColor.White;

@@ -138,7 +138,7 @@ namespace CA1
             const int WIDTH = 11;
             const int HEIGHT = 9;
 
-            string rankInitial = card.Rank.GetInitial();
+            string rankInitial = card.Rank.Initial();
             string suitIcon = card.Suit.Icon();
             ConsoleColor fg = card.Suit.Color();
             ConsoleColor bg = ConsoleColor.White;

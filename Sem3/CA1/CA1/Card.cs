@@ -49,7 +49,7 @@ namespace CA1
             return GetType().Name;
         }
 
-        public virtual string GetInitial()
+        public virtual string Initial()
         {
             return GetType().Name[0].ToString();
         }
@@ -88,7 +88,7 @@ namespace CA1
             return $"{Value}";
         }
 
-        public override string GetInitial()
+        public override string Initial()
         {
             return ToString();
         }
@@ -112,9 +112,14 @@ namespace CA1
             return $"{Rank} of {Suit}";
         }
 
-        public string GetDetails()
+        public string ToStringLong()
         {
             return $"Card dealt is the {this}, worth {GetPoints()}";
+        }
+
+        public string ToStringShort()
+        {
+            return $"{Rank.Initial()}{Suit.Icon()}";
         }
 
         // outdated not working
