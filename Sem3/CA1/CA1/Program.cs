@@ -9,6 +9,7 @@ namespace CA1
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             Card cc = new(new Number(10), Suit.Clubs);
 
 
@@ -32,6 +33,8 @@ namespace CA1
                 {
                     DrawCard((i + 1) * 12, 11 + 2, Player.Cards[i]);
                 }
+
+                // render a propmt here instead of doing Console.WriteLine
             }
 
             public override void HandleSetup()
@@ -44,24 +47,61 @@ namespace CA1
                 Player.DrawTop(Deck);
                 Dealer.DrawTop(Deck);
 
+                // could use an observer here, whenever the deck changes
                 Render();
-
-                Console.ReadKey();
-
-                Dealer.DrawTop(Deck);
-
-                Render();
-
-                
-
             }
+
+            public StickOrTwist StickOrTwistInput()
+            {
+                Console.WriteLine("Do you want to stick or twist? (s/t): ");
+
+                StickOrTwist? input = null;
+                while (!input.HasValue)
+                {
+                    input = AskForInput();
+                }
+
+                return input.Value;
+            }
+
+            public static StickOrTwist? AskForInput()
+            {
+                Console.Write("> ");
+                string? input = Console.ReadLine()?.ToLower();
+
+                return input switch
+                {
+                    "s" => StickOrTwist.Stick,
+                    "t" => StickOrTwist.Twist,
+                    _ => null
+                };
+            }
+
 
             public override void HandlePlayerTurn()
             {
+                Console.WriteLine();
                 Console.WriteLine("Player turn");
 
-                // ask the player and render the card, keep asking and drawing
+                while (!Player.Bust && !Player.GotBlackjack && Player.IsTwisting)
+                {
+                    StickOrTwist input = StickOrTwistInput();
+
+                    Player.StickOrTwist = input;
+
+                    if (Player.IsSticking)
+                    {
+                        break;
+                    }
+
+                    Card anotherCard = Player.DrawTop(Deck);
+                    Render();
+                }
+
+                Console.WriteLine("DONE");
             }
+
+            
 
             // keep updating the scores as the cards appear
 
