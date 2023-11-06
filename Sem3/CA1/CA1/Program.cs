@@ -9,17 +9,182 @@ namespace CA1
     {
         static void Main(string[] args)
         {
-            Card cc = new(new Number(10), Suit.Diamonds);
+            Card cc = new(new Number(10), Suit.Clubs);
 
-            // DrawAt(10, 10, c.GetDrawing());
-            DrawCard(2, 5, cc);
-            DrawCard(20, 5, cc);
+            DrawCard(2, 2, cc);
 
 
 
 
+            Game g = new Game();
+            g.Play();
 
-            Console.WriteLine("XX".InsertIntoStringWithPadRight("abcdef", 1));
+        }
+
+        public class Game : GameLogic
+        {
+            public override void HandleSetup()
+            {
+                Console.WriteLine("Setup");
+            }
+
+            public override void HandlePlayerTurn()
+            {
+                Console.WriteLine("Player turn");
+            }
+
+            public override void HandleDealerTurn()
+            {
+                Console.WriteLine("Dealer turn");
+            }
+
+            public override void HandleCleanup()
+            {
+                Console.WriteLine("Cleanup");
+            }
+        }
+
+        public class ConsoleGame : GameLogic
+        {
+            public override void HandleSetup()
+            {
+                Console.WriteLine("new game start");
+                Deck.Shuffle();
+
+                GameState = GameState.PlayerTurn;
+            }
+
+            public override void HandleCleanup()
+            {
+                Console.WriteLine("Final scores:");
+                Console.WriteLine($"Your score is {Player.Points}");
+                Console.WriteLine($"Dealer's score is {Dealer.Points}");
+
+                DetermineWinner();
+
+                string resultMessage = GameResult switch
+                {
+                    GameResult.PlayerWins => "Player wins!",
+                    GameResult.DealerWins => "Dealer wins!",
+                    GameResult.Draw => "It's a draw!",
+                    GameResult.PlayerBust => "Dealer wins - Player busts",
+                    GameResult.DealerBust => "Player wins - Dealer busts",
+                    _ => "Invalid game result"
+                };
+
+                Console.WriteLine(resultMessage);
+            }
+
+            public void DetermineWinner()
+            {
+                if (Player.Bust)
+                {
+                    GameResult = GameResult.PlayerBust;
+                }
+                else if (Dealer.Bust)
+                {
+                    GameResult = GameResult.DealerBust;
+                }
+                else if (Player.Points == Dealer.Points)
+                {
+                    GameResult = GameResult.Draw;
+                }
+                else if (Player.Points > Dealer.Points)
+                {
+                    GameResult = GameResult.PlayerWins;
+                }
+                else
+                {
+                    GameResult = GameResult.DealerWins;
+                }
+            }
+
+            public override void HandlePlayerTurn()
+            {
+                Card card1 = Player.DrawTop(Deck);
+                Console.WriteLine($"Card dealt is {card1}, worth {card1.GetPoints()}");
+                Console.WriteLine($"Your score is {Player.Points}");
+                Card card2 = Player.DrawTop(Deck);
+                Console.WriteLine($"Card dealt is {card2}, worth {card2.GetPoints()}");
+                Console.WriteLine($"Your score is {Player.Points}");
+
+                while (!Player.Bust && !Player.GotBlackjack && Player.IsTwisting)
+                {
+                    StickOrTwist input = StickOrTwistInput();
+
+                    Player.StickOrTwist = input;
+
+                    if (Player.IsSticking)
+                    {
+                        break;
+                    }
+
+                    Card anotherCard = Player.DrawTop(Deck);
+                    Console.WriteLine($"Card dealt is {anotherCard}, worth {anotherCard.GetPoints()}");
+                    Console.WriteLine($"Your score is {Player.Points}");
+                }
+
+                if (Player.GotBlackjack)
+                {
+                    Console.WriteLine("Woohoo you won!");
+                    GameState = GameState.GameOver;
+                    return;
+                }
+
+                if (Player.Bust)
+                {
+                    Console.WriteLine("Oh no you bust :(");
+                    GameState = GameState.GameOver;
+                    return;
+                }
+
+                GameState = GameState.DealerTurn;
+            }
+
+            public override void HandleDealerTurn()
+            {
+                while (Dealer.Points < Player.Points && Dealer.HasToTake)
+                {
+                    Card card = Dealer.DrawTop(Deck);
+
+                    Console.WriteLine(card.GetDetails());
+                    Console.WriteLine($"Dealer's score is {Dealer.Points}");
+                }
+
+                if (Dealer.Bust)
+                {
+                    Console.WriteLine("Dealer bust...");
+                    GameState = GameState.GameOver;
+                }
+
+                GameState = GameState.GameOver;
+            }
+
+            public StickOrTwist StickOrTwistInput()
+            {
+                Console.WriteLine("Do you want to stick or twist? (s/t): ");
+
+                StickOrTwist? input = null;
+                while (!input.HasValue)
+                {
+                    input = AskForInput();
+                }
+
+                return input.Value;
+            }
+
+            public static StickOrTwist? AskForInput()
+            {
+                Console.Write("> ");
+                string? input = Console.ReadLine()?.ToLower();
+
+                return input switch
+                {
+                    "s" => StickOrTwist.Stick,
+                    "t" => StickOrTwist.Twist,
+                    _ => null
+                };
+            }
         }
 
 

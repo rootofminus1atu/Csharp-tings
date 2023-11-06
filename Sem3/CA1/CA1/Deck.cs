@@ -13,10 +13,20 @@ namespace CA1
 
         public Deck()
         {
+            InitializeDeck();
+        }
+
+        public void Reset()
+        {
+            Cards.Clear();
+            DiscardedCards.Clear();
+            InitializeDeck();
+        }
+
+        public void InitializeDeck()
+        {
             foreach (Suit s in Enum.GetValues(typeof(Suit)))
             {
-                // maybe we could use a card factory insted of static methods
-
                 foreach (IRank rank in Card.GetAllRanks())
                 {
                     Cards.Add(new Card(rank, s));

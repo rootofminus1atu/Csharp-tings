@@ -11,15 +11,13 @@ namespace CA1
 {
     public class Player
     {
-        public const int MAX_SCORE = 21;
+        public const int MAX_POINTS = 21;
 
         public List<Card> Cards { get; set; } = new();
 
         public int Points => GetPoints();
-
-
-        public bool Bust => Points > MAX_SCORE;
-        public bool GotBlackjack => Points == MAX_SCORE;
+        public bool Bust => Points > MAX_POINTS;
+        public bool GotBlackjack => Points == MAX_POINTS;
 
         public StickOrTwist StickOrTwist { get; set; } = StickOrTwist.Twist;
         public bool IsTwisting => this.StickOrTwist == StickOrTwist.Twist;
@@ -40,6 +38,12 @@ namespace CA1
             return card;
         }
 
+        public void ResetHand()
+        {
+            Cards.Clear();
+            StickOrTwist = StickOrTwist.Twist;
+        }
+
         private int GetPoints()
         {
             const int ACE_ALT_POINTS = 1;
@@ -48,7 +52,7 @@ namespace CA1
 
             foreach(Card card in Cards)
             {
-                if (card.Rank is Ace && total + card.GetPoints() > MAX_SCORE)
+                if (card.Rank is Ace && total + card.GetPoints() > MAX_POINTS)
                 {
                     total += ACE_ALT_POINTS;
                 }
@@ -66,7 +70,7 @@ namespace CA1
         {
             if (card.Rank is Ace)
             {
-                if (Score + card.GetPoints() > MAX_SCORE)
+                if (Score + card.GetPoints() > MAX_POINTS)
                 {
                     // special value
                     Score += 1;

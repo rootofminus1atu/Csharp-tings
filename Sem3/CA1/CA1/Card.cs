@@ -117,6 +117,7 @@ namespace CA1
             return $"Card dealt is the {this}, worth {GetPoints()}";
         }
 
+        // outdated not working
         public string GetDrawing()
         {
             const int WIDTH = 5;
