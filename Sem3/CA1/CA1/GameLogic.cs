@@ -39,6 +39,11 @@ namespace CA1
         public GameState GameState { get; set; } = GameState.NewGame;  // do I even need this?
         public GameResult GameResult { get; set; }
 
+
+        private bool _skipDealerTurn = false;
+
+
+
         public GameLogic() { }
 
 
@@ -46,7 +51,8 @@ namespace CA1
         {
             HandleSetup();
             HandlePlayerTurn();
-            HandleDealerTurn();
+            if (!_skipDealerTurn)
+                HandleDealerTurn();
             HandleCleanup();
         }
 
@@ -81,6 +87,11 @@ namespace CA1
             Deck.Reset();
             Player.ResetHand();
             Dealer.ResetHand();
+        }
+
+        public void SkipDealerTurn()
+        {
+            _skipDealerTurn = true;
         }
 
         public abstract void HandleSetup();

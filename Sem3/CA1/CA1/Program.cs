@@ -16,12 +16,35 @@ namespace CA1
             Game g = new Game();
             g.Play();
 
+            bool yesNo = true;
+
+            while(true)
+            {
+                Console.WriteLine("Do you want to play again? (y/n)");
+                yesNo = Console.ReadLine()?.ToLower() switch
+                {
+                    "y" => true,
+                    "n" => false,
+                    _ => false,
+                };
+
+                if (!yesNo)
+                {
+                    break;
+                }
+
+                g.PlayAgain();
+            }
+
+
         }
 
         public class Game : GameLogic
         {
             public void Render()
             {
+                Console.Clear();
+
                 DrawAt(0, 0, $"Dealer ({Dealer.Points}) {Dealer.AllCardsString}");
                 for (int i = 0; i < Dealer.Cards.Count(); i++)
                 {
@@ -33,6 +56,11 @@ namespace CA1
                 {
                     DrawCard((i + 1) * 12, 11 + 2, Player.Cards[i]);
                 }
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
 
                 // render a propmt here instead of doing Console.WriteLine
             }
@@ -47,7 +75,7 @@ namespace CA1
                 Player.DrawTop(Deck);
                 Dealer.DrawTop(Deck);
 
-                // could use an observer here, whenever the deck changes
+                // could use an observer here, whenever the deck changes we want to render
                 Render();
             }
 
@@ -80,7 +108,6 @@ namespace CA1
 
             public override void HandlePlayerTurn()
             {
-                Console.WriteLine();
                 Console.WriteLine("Player turn");
 
                 while (!Player.Bust && !Player.GotBlackjack && Player.IsTwisting)
@@ -94,29 +121,79 @@ namespace CA1
                         break;
                     }
 
-                    Card anotherCard = Player.DrawTop(Deck);
+                    Player.DrawTop(Deck);
                     Render();
                 }
 
-                Console.WriteLine("DONE");
+                if (Player.GotBlackjack)
+                {
+                    SkipDealerTurn();
+                    return;
+                }
+
+                if (Player.Bust)
+                {
+                    SkipDealerTurn();
+                    return;
+                }
+
             }
-
-            
-
-            // keep updating the scores as the cards appear
 
             public override void HandleDealerTurn()
             {
-                Console.WriteLine("Dealer turn");
+                Console.WriteLine("Dealer's turn");
 
-                // uncover the delaer's card... or maybe just keep drawing the cards he draws
+                while (Dealer.HasToTake)
+                {
+                    Thread.Sleep(1000);
+
+                    Dealer.DrawTop(Deck);
+                    Render();
+                }
+
+                if (Dealer.Bust)
+                {
+                    return;
+                }
             }
 
             public override void HandleCleanup()
             {
-                Console.WriteLine("Cleanup");
+                string resultMessage = DetermineWinner() switch
+                {
+                    GameResult.PlayerWins => "Player wins with Blackjack!",
+                    GameResult.DealerWins => "Dealer wins!",
+                    GameResult.Draw => "It's a draw!",
+                    GameResult.PlayerBust => "Dealer wins - Player busts",
+                    GameResult.DealerBust => "Player wins - Dealer busts",
+                    _ => "Invalid game result"
+                };
 
-                // show result
+                Console.WriteLine(resultMessage);
+            }
+
+            public GameResult DetermineWinner()
+            {
+                if (Player.Bust)
+                {
+                    return GameResult.PlayerBust;
+                }
+                else if (Dealer.Bust)
+                {
+                    return GameResult.DealerBust;
+                }
+                else if (Player.Points == Dealer.Points)
+                {
+                    return GameResult.Draw;
+                }
+                else if (Player.Points > Dealer.Points)
+                {
+                    return GameResult.PlayerWins;
+                }
+                else
+                {
+                    return GameResult.DealerWins;
+                }
             }
         }
 
