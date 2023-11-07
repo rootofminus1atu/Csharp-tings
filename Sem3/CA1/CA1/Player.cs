@@ -13,10 +13,10 @@ namespace CA1
     {
         public const int MAX_POINTS = 21;
 
-        public List<Card> Cards { get; set; } = new();
+        public List<Card> Cards { get; } = new();
 
-        public List<string> CardStrings => Cards.Select(c => c.ToStringShort()).ToList();
-        public string AllCardsString => string.Join(", ", CardStrings);
+        public List<string> CardSymbols => Cards.Select(c => c.ToStringShort()).ToList();
+        public string AllCardSymbolsString => string.Join(", ", CardSymbols);
 
         public int Points => GetPoints();
         public bool Bust => Points > MAX_POINTS;
@@ -68,23 +68,6 @@ namespace CA1
 
             return total;
         }
-        /*
-        private void AddPoints(Card card)
-        {
-            if (card.Rank is Ace)
-            {
-                if (Score + card.GetPoints() > MAX_POINTS)
-                {
-                    // special value
-                    Score += 1;
-                    Console.WriteLine("Ace counted as 1 instead of 11");
-                    return;
-                }
-            }
-
-            Score += card.GetPoints();
-        }
-        */
     }
 
     public class Dealer : Player

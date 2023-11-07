@@ -9,7 +9,6 @@ namespace CA1
     public class Deck
     {
         public List<Card> Cards { get; set; } = new();
-        public List<Card> DiscardedCards { get; set; } = new();
 
         public Deck()
         {
@@ -20,7 +19,6 @@ namespace CA1
         public void Reset()
         {
             Cards.Clear();
-            DiscardedCards.Clear();
             InitializeDeck();
             Shuffle();
         }
@@ -29,7 +27,7 @@ namespace CA1
         {
             foreach (Suit s in Enum.GetValues(typeof(Suit)))
             {
-                foreach (IRank rank in Card.GetAllRanks())
+                foreach (Rank rank in Card.GetAllRanks())
                 {
                     Cards.Add(new Card(rank, s));
                 }
@@ -46,7 +44,6 @@ namespace CA1
         {
             Card card = Cards.First();
 
-            DiscardedCards.Add(card);
             Cards.RemoveAt(0);
 
             return card;
@@ -56,7 +53,6 @@ namespace CA1
         {
             Card card = Cards.Last();
 
-            DiscardedCards.Add(card);
             Cards.RemoveAt(Cards.Count - 1);
 
             return card;

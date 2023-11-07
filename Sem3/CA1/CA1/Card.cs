@@ -7,6 +7,8 @@ using System.Xml.Schema;
 
 namespace CA1
 {
+    // MAYBE TODOS:
+    // use records instead of interfaces for the Rank type
     public enum Suit
     {
         Diamonds,
@@ -42,7 +44,7 @@ namespace CA1
         }
     }
 
-    public abstract class IRank
+    public abstract class Rank
     {
         public override string ToString()
         {
@@ -51,15 +53,15 @@ namespace CA1
 
         public virtual string Initial()
         {
-            return GetType().Name[0].ToString();
+            return ToString()[0].ToString();
         }
     }
 
-    public class Ace : IRank { }
-    public class King : IRank { }
-    public class Queen : IRank { }
-    public class Jack : IRank { }
-    public class Number : IRank
+    public class Ace : Rank { }
+    public class King : Rank { }
+    public class Queen : Rank { }
+    public class Jack : Rank { }
+    public class Number : Rank
     {
         public const int MAX_VALUE = 10;
         public const int MIN_VALUE = 2;
@@ -78,9 +80,9 @@ namespace CA1
             }
         }
 
-        public Number(int Rank)
+        public Number(int value)
         {
-            Value = Rank;
+            Value = value;
         }
 
         public override string ToString()
@@ -96,13 +98,12 @@ namespace CA1
 
     public class Card
     {
-        public IRank Rank { get; set; }
-        public Suit Suit { get; set; }
+        public Rank Rank { get; private set; }
+        public Suit Suit { get; private set; }
 
 
-        public Card(IRank name, Suit suit)
+        public Card(Rank name, Suit suit)
         {
-            // do a check for valid card here and throw exception maybe
             Rank = name;
             Suit = suit;
         }
@@ -122,51 +123,31 @@ namespace CA1
             return $"{Rank.Initial()}{Suit.Icon()}";
         }
 
-        // outdated not working
-        public string GetDrawing()
-        {
-            const int WIDTH = 5;
-            const int HEIGHT = 7;
-
-            StringBuilder total = new();
-
-            for (int i = 0; i < WIDTH; i++)
-            {
-                for (int j = 0; j < HEIGHT; j++)
-                {
-                    total.Append('O');
-                }
-                total.Append('\n');
-            }
-
-            return total.ToString();
-        }
-
-        public int GetPoints()  // rename to get points
+        public int GetPoints()
         {
             return Rank switch
             {
                 Ace => 11,
                 King or Queen or Jack => 10,
                 Number { Value: int n } => n,
-                _ => throw new Exception("No points for this card")
+                _ => throw new Exception("I don't know how, but you somehow created a card that shouldn't exit, shame on you")
             };
         }
 
 
-        public static IEnumerable<IRank> GetPictureRanks()
+        public static IEnumerable<Rank> GetPictureRanks()
         {
-            return new List<IRank>() { new Ace(), new King(), new Queen(), new Jack() };
+            return new List<Rank>() { new Ace(), new King(), new Queen(), new Jack() };
         }
 
-        public static IEnumerable<IRank> GetNumberRanks()
+        public static IEnumerable<Rank> GetNumberRanks()
         {
             return Enumerable
                 .Range(Number.MIN_VALUE, Number.MAX_VALUE - 1)
                 .Select(num => new Number(num));
         }
 
-        public static IEnumerable<IRank> GetAllRanks()
+        public static IEnumerable<Rank> GetAllRanks()
         {
             return GetNumberRanks().Concat(GetPictureRanks());
         }
