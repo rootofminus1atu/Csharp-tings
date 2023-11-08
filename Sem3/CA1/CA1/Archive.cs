@@ -219,6 +219,8 @@ namespace CA1
 
     public class ConsoleGame : GameLogic
     {
+        public ConsoleGame(Player player) : base(player) { }
+
         public override void HandleSetup()
         {
             Console.WriteLine("new game start");

@@ -14,7 +14,9 @@ namespace CA1
             Card cc = new(new Number(10), Suit.Clubs);
 
 
-            Game g = new Game();
+            Player mario = new("Mario");
+            Game g = new(mario);
+
             g.Play();
 
             while (true)
@@ -39,6 +41,8 @@ namespace CA1
 
         public class Game : GameLogic
         {
+            public Game(Player player) : base(player) { }
+
             public void RenderDisplay()
             {
                 Console.Clear();
@@ -59,7 +63,7 @@ namespace CA1
                     DrawCard(x, y, Dealer.Cards[i]);
                 }
 
-                DrawAt(CORNER_X, CORNER_Y + ROW_JUMP_Y, $"Player ({Player.Points}) {Player.AllCardSymbolsString}");
+                DrawAt(CORNER_X, CORNER_Y + ROW_JUMP_Y, $"{Player.Name} ({Player.Points}) {Player.AllCardSymbolsString}");
                 for (int i = 0; i < Player.Cards.Count; i++)
                 {
                     int x = CORNER_X + (i + 1) * CARD_JUMP_X;

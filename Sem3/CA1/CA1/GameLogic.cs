@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace CA1
 {
+    /// <summary>
+    /// Represents the decision of whether to stick or twist in a card game.
+    /// </summary>
     public enum StickOrTwist
     {
         Stick,
         Twist
     }
 
+    /// <summary>
+    /// Represents the possible outcomes of a blackjack game.
+    /// </summary>
     public enum GameResult
     {
         PlayerBust,
@@ -24,6 +30,11 @@ namespace CA1
 
     public static class GameResultExtension
     {
+        /// <summary>
+        /// Gets the foreground color associated with a specific game result.
+        /// </summary>
+        /// <param name="gameResult">The game result value.</param>
+        /// <returns>The foreground color for displaying this game result.</returns>
         public static ConsoleColor FgColor(this GameResult gameResult)
         {
             return gameResult switch
@@ -37,6 +48,11 @@ namespace CA1
             };
         }
 
+        /// <summary>
+        /// Gets a message associated with a specific game result.
+        /// </summary>
+        /// <param name="gameResult">The game result value.</param>
+        /// <returns>A message describing the outcome of the game based on this result.</returns>
         public static string Message(this  GameResult gameResult)
         {
             return gameResult switch 
@@ -51,21 +67,44 @@ namespace CA1
         }
     }
 
-
+    /// <summary>
+    /// Represents the base logic for a blackjack game.
+    /// </summary>
     public abstract class GameLogic
     {
-        public Player Player { get; } = new Player();
+        /// <summary>
+        /// The player participating in the game.
+        /// </summary>
+        public Player Player { get; }
+
+        /// <summary>
+        /// The dealer participating in the game.
+        /// </summary>
         public Dealer Dealer { get; } = new Dealer();
+
+        /// <summary>
+        /// The deck of cards used in the game.
+        /// </summary>
         public Deck Deck { get; } = new Deck();
 
-
+        /// <summary>
+        /// Whether to skip the dealer's turn or not.
+        /// </summary>
         private bool _skipDealerTurn = false;
 
 
+        /// <summary>
+        /// Initializes a new instance of the GameLogic class with the specified player.
+        /// </summary>
+        /// <param name="player">The player participating in the game.</param>
+        public GameLogic(Player player) 
+        {
+            Player = player;
+        }
 
-        public GameLogic() { }
-
-
+        /// <summary>
+        /// Plays a game round, including setup, player's turn, dealer's turn (if not skipped), and cleanup.
+        /// </summary>
         public void Play()
         {
             HandleSetup();
@@ -75,12 +114,18 @@ namespace CA1
             HandleCleanup();
         }
 
+        /// <summary>
+        /// Resets the game and plays it again.
+        /// </summary>
         public void PlayAgain()
         {
             Reset();
             Play();
         }
 
+        /// <summary>
+        /// Resets the game, by reseting the Deck, Player and Dealer.
+        /// </summary>
         private void Reset()
         {
             Deck.Reset();
@@ -89,14 +134,32 @@ namespace CA1
             _skipDealerTurn = false;
         }
 
+        /// <summary>
+        /// Skips the dealer's turn in the current round.
+        /// </summary>
         public void SkipDealerTurn()
         {
             _skipDealerTurn = true;
         }
 
+        /// <summary>
+        /// Handles the setup phase of the game.
+        /// </summary>
         public abstract void HandleSetup();
+
+        /// <summary>
+        /// Handles the cleanup phase of the game.
+        /// </summary>
         public abstract void HandleCleanup();
+
+        /// <summary>
+        /// Handles the Player's turn in the game.
+        /// </summary>
         public abstract void HandlePlayerTurn();
+
+        /// <summary>
+        /// Handles the Dealer's turn in the game.
+        /// </summary>
         public abstract void HandleDealerTurn();
 
     }
