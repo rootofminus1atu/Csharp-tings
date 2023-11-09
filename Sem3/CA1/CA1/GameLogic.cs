@@ -80,7 +80,7 @@ namespace CA1
         /// <summary>
         /// The dealer participating in the game.
         /// </summary>
-        public Dealer Dealer { get; } = new Dealer();
+        public Dealer Dealer { get; }
 
         /// <summary>
         /// The deck of cards used in the game.
@@ -97,9 +97,11 @@ namespace CA1
         /// Initializes a new instance of the GameLogic class with the specified player.
         /// </summary>
         /// <param name="player">The player participating in the game.</param>
-        public GameLogic(Player player) 
+        /// <param name="dealer">The dealer participating in the game.</param>
+        public GameLogic(Player player, Dealer dealer) 
         {
             Player = player;
+            Dealer = dealer;
         }
 
         /// <summary>
@@ -140,6 +142,34 @@ namespace CA1
         public void SkipDealerTurn()
         {
             _skipDealerTurn = true;
+        }
+
+        /// <summary>
+        /// Determines the result of the Game.
+        /// </summary>
+        /// <returns>A <see cref="GameResult"/> variant corresponding to the result of the game.</returns>
+        public GameResult DetermineWinner()
+        {
+            if (Player.Bust)
+            {
+                return GameResult.PlayerBust;
+            }
+            else if (Dealer.Bust)
+            {
+                return GameResult.DealerBust;
+            }
+            else if (Player.Points == Dealer.Points)
+            {
+                return GameResult.Draw;
+            }
+            else if (Player.Points > Dealer.Points)
+            {
+                return GameResult.PlayerWins;
+            }
+            else
+            {
+                return GameResult.DealerWins;
+            }
         }
 
         /// <summary>

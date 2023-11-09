@@ -76,7 +76,7 @@ namespace CA1
 
 
         /// <summary>
-        /// Initializes a new instance of the Player class with the specified name.
+        /// Initializes a new instance of the Player class with the specified name (if not provided, default is "Player").
         /// </summary>
         /// <param name="name">The name of the player (if not provided, default is "Player").</param>
         public Player(string name = "Player")
@@ -167,7 +167,7 @@ namespace CA1
 
 
         /// <summary>
-        /// Initializes a new instance of the Dealer class with the specified name.
+        /// Initializes a new instance of the Dealer class with the specified name (if not provided, default is "Dealer").
         /// </summary>
         /// <param name="name">The name of the dealer (if not provided, default is "Dealer").</param>
         public Dealer(string name = "Dealer") : base(name) { }
