@@ -10,10 +10,6 @@ namespace CA1
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;
-            Card cc = new(new Number(10), Suit.Clubs);
-
-
             Player mario = new("Mario");
             Game g = new(mario);
 
@@ -21,7 +17,7 @@ namespace CA1
 
             while (true)
             {
-                Console.WriteLine("Do you want to play again? (y/n)");
+                Console.WriteLine("Do you want to play again? (y/n): ");
                 bool yesNo = Utils.CasePrompt(("y", true), ("n", false));
 
                 if (!yesNo)
