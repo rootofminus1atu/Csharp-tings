@@ -219,7 +219,7 @@ namespace CA1
 
     public class ConsoleGame : GameLogic
     {
-        public ConsoleGame(Player player) : base(player) { }
+        public ConsoleGame(Player player) : base(player, new Dealer()) { }
 
         public override void HandleSetup()
         {
