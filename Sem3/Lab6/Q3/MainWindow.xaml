@@ -1,0 +1,16 @@
+﻿<Window x:Class="Q3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q3"
+        mc:Ignorable="d"
+        Title="8ball" Height="193" Width="312">
+    <Grid>
+        <TextBox x:Name="txtQuestion" HorizontalAlignment="Center" Margin="0,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="247"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,25,0,0" TextWrapping="Wrap" Text="Gaze into the future! What question do you seek answers for? Ask, and the mysteries shall unfold." VerticalAlignment="Top" Width="260"/>
+        <Button x:Name="btnAsk" Content="Ask" HorizontalAlignment="Left" VerticalAlignment="Top" Width="44" Click="btnAsk_Click" Margin="132,104,0,0"/>
+        <TextBlock x:Name="txtAnswer" HorizontalAlignment="Center" Margin="0,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
+
+    </Grid>
+</Window>
