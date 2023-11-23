@@ -1,0 +1,15 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="537" Loaded="Window_Loaded">
+    <Grid>
+        <ListBox x:Name="lstExpenses" Margin="149,61,121,144"/>
+        <Button x:Name="btnAddExpense" Content="Add Expense" HorizontalAlignment="Left" Margin="149,313,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBlock x:Name="txtTotalCost" HorizontalAlignment="Left" Margin="268,313,0,0" TextWrapping="NoWrap" Text="Total Cost: " VerticalAlignment="Top" Width="148" Height="63"/>
+
+    </Grid>
+</Window>
