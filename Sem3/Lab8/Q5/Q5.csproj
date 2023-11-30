@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="4381521.png" />
+    <None Remove="970995-200.png" />
+    <None Remove="disco-ball-party-dance-music-outline-icon-vector.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="4381521.png" />
+    <Resource Include="970995-200.png" />
+    <Resource Include="disco-ball-party-dance-music-outline-icon-vector.jpg" />
+  </ItemGroup>
+
+</Project>
