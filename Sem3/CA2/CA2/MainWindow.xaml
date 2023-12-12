@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CA2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
+        <ListBox x:Name="lbxTeams" Margin="62,99,554,182" SelectionChanged="lbxTeams_SelectionChanged"/>
+        <ListBox x:Name="lbxPlayers" Margin="336,99,280,182"/>
+        <Button x:Name="btnWin" Content="Win" HorizontalAlignment="Left" Margin="658,199,0,0" VerticalAlignment="Top" Width="56" Click="btnWin_Click"/>
+        <Button x:Name="btnLoss" Content="Loss" HorizontalAlignment="Left" Margin="658,237,0,0" VerticalAlignment="Top" Width="56" Click="btnLoss_Click"/>
+        <Button x:Name="btnDraw" Content="Draw" HorizontalAlignment="Left" Margin="658,277,0,0" VerticalAlignment="Top" Width="56" Click="btnDraw_Click"/>
 
     </Grid>
 </Window>
