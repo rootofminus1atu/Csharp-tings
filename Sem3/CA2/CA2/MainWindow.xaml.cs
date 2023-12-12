@@ -21,6 +21,9 @@ namespace CA2
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Collection of teams containing players.
+        /// </summary>
         private List<Team> teams = new();
 
         public MainWindow()
@@ -28,6 +31,9 @@ namespace CA2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes and populates data for teams and players representing different countries.
+        /// </summary>
         private void GetData()
         {
             // French players
@@ -62,23 +68,27 @@ namespace CA2
 
         private void lbxTeams_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Team? chosen = lbxTeams.SelectedItem as Team;
+            Team? chosenTeam = lbxTeams.SelectedItem as Team;
 
-            lbxPlayers.ItemsSource = chosen?.Players;
+            lbxPlayers.ItemsSource = chosenTeam?.Players;
         }
 
 
+        /// <summary>
+        /// Adds a new match result to the player's result record and refreshes the UI to reflect those changes.
+        /// </summary>
+        /// <param name="c">The character representing a match outcome (W, D, or L).</param>
         private void AddResult(char c)
         {
-            Player? chosen = lbxPlayers.SelectedItem as Player;
+            Player? chosenPlayer = lbxPlayers.SelectedItem as Player;
 
-            chosen?.AddResult(c);
+            chosenPlayer?.AddResult(c);
 
             teams.Sort();
             teams.Reverse();
             lbxPlayers.Items.Refresh();
             lbxTeams.Items.Refresh();
-            ManageStars(chosen);
+            ManageStars(chosenPlayer);
         }
 
         private void btnWin_Click(object sender, RoutedEventArgs e)
@@ -98,14 +108,18 @@ namespace CA2
 
         private void lbxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Player? chosen = lbxPlayers.SelectedItem as Player;
+            Player? chosenPlayer = lbxPlayers.SelectedItem as Player;
 
-            ManageStars(chosen);
+            ManageStars(chosenPlayer);
         }
 
-        private void ManageStars(Player? chosen)
+        /// <summary>
+        /// Updates the star images based on the star rating of the chosen player.
+        /// </summary>
+        /// <param name="chosenPlayer">The player for whom the star rating is to be displayed.</param>
+        private void ManageStars(Player? chosenPlayer)
         {
-            int? howManyStars = chosen?.CalculateStars();
+            int? howManyStars = chosenPlayer?.CalculateStars();
             const string STAR_SOLID_PATH = "/images/starsolid.png";
             const string STAR_OUTLINE_PATH = "/images/staroutline.png";
 
