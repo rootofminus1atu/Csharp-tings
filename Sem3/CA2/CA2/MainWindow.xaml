@@ -30,7 +30,7 @@
         <ListBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="30" x:Name="lbxTeams" SelectionChanged="lbxTeams_SelectionChanged"/>
 
         <TextBlock Text="Players" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" />
-        <ListBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="30" x:Name="lbxPlayers" />
+        <ListBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="24,30,36,30" x:Name="lbxPlayers" SelectionChanged="lbxPlayers_SelectionChanged" />
 
         <Button Grid.Row="3" Grid.Column="4" x:Name="btnWin" Content="Win" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="60" Click="btnWin_Click"/>
         <Button Grid.Row="4" Grid.Column="4" x:Name="btnLoss" Content="Loss" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Click="btnLoss_Click"/>

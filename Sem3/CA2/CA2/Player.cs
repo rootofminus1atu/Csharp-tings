@@ -41,5 +41,16 @@ namespace CA2
         {
             ResultRecord = ResultRecord[1..] + c;
         }
+
+        public int CalculateStars()
+        {
+            return Points switch
+            {
+                int n when n >= 1 && n < 6 => 1,
+                int n when n >= 6 && n < 11 => 2,
+                int n when n >= 11 => 3,
+                _ => 0
+            };
+        }
     }
 }

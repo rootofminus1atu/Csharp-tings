@@ -67,6 +67,7 @@ namespace CA2
             lbxPlayers.ItemsSource = chosen?.Players;
         }
 
+
         private void AddResult(char c)
         {
             Player? chosen = lbxPlayers.SelectedItem as Player;
@@ -77,6 +78,7 @@ namespace CA2
             teams.Reverse();
             lbxPlayers.Items.Refresh();
             lbxTeams.Items.Refresh();
+            ManageStars(chosen);
         }
 
         private void btnWin_Click(object sender, RoutedEventArgs e)
@@ -92,6 +94,24 @@ namespace CA2
         private void btnDraw_Click(object sender, RoutedEventArgs e)
         {
             AddResult('D');
+        }
+
+        private void lbxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Player? chosen = lbxPlayers.SelectedItem as Player;
+
+            ManageStars(chosen);
+        }
+
+        private void ManageStars(Player? chosen)
+        {
+            int? howManyStars = chosen?.CalculateStars();
+            const string STAR_SOLID_PATH = "/images/starsolid.png";
+            const string STAR_OUTLINE_PATH = "/images/staroutline.png";
+
+            star1.Source = new BitmapImage(new Uri(howManyStars >= 1 ? STAR_SOLID_PATH : STAR_OUTLINE_PATH, UriKind.Relative));
+            star2.Source = new BitmapImage(new Uri(howManyStars >= 2 ? STAR_SOLID_PATH : STAR_OUTLINE_PATH, UriKind.Relative));
+            star3.Source = new BitmapImage(new Uri(howManyStars == 3 ? STAR_SOLID_PATH : STAR_OUTLINE_PATH, UriKind.Relative));
         }
     }
 }
