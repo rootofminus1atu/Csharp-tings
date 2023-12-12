@@ -54,7 +54,6 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Set the Image widths to Auto so they fill the space -->
                 <Image Grid.Column="0" x:Name="star1" Source="/images/staroutline.png" Width="Auto"/>
                 <Image Grid.Column="1" x:Name="star2" Source="/images/staroutline.png" Width="Auto"/>
                 <Image Grid.Column="2" x:Name="star3" Source="/images/staroutline.png" Width="Auto"/>
