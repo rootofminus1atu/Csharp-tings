@@ -7,4 +7,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\staroutline.png" />
+    <None Remove="images\starsolid.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\staroutline.png" />
+    <Resource Include="images\starsolid.png" />
+  </ItemGroup>
+
 </Project>

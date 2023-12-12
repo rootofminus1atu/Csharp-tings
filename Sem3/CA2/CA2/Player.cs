@@ -11,6 +11,7 @@ namespace CA2
         public string Name { get; set; }
         public string ResultRecord { get; set; }
         public int Points => ResultRecord.Select(PointMap).Sum();
+        
 
 
         public Player(string name, string resultRecord)
@@ -34,6 +35,7 @@ namespace CA2
                 _ => 0
             };
         }
+
 
         public void AddResult(char c)
         {
