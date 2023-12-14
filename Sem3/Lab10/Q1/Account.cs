@@ -25,16 +25,25 @@ namespace Q1
 
         public void Deposit(double amount)
         {
-            if (amount < 0) return;
+            if (amount < 0)
+            {
+                throw new Exception("Cannot deposit less than 0 money.");
+            }
 
             Balance += amount;
         }
 
         public void Withdraw(double amount)
         {
-            if (amount < 0) return;
+            if (amount < 0)
+            {
+                throw new Exception("Cannot withdraw less than 0 money.");
+            }
 
-            if (amount < Balance) return;
+            if (amount > Balance)
+            {
+                throw new Exception("Not enough funds left in your bank account.");
+            }
 
             Balance -= amount;
         }

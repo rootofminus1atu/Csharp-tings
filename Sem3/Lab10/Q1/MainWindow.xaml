@@ -22,6 +22,11 @@
         <CheckBox x:Name="cbxSavingsAccounts" Content="Savings Accounts" HorizontalAlignment="Left" Margin="241,60,0,0" VerticalAlignment="Top" Checked="cbxSavingsAccounts_Checked_1" Unchecked="cbxSavingsAccounts_Unchecked_1"/>
         <TextBlock HorizontalAlignment="Left" Margin="401,244,0,0" TextWrapping="Wrap" Text="Balance" VerticalAlignment="Top"/>
         <TextBlock x:Name="txtBalance" HorizontalAlignment="Left" Margin="496,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
+        <Button x:Name="btnDeposit" Content="Deposit" HorizontalAlignment="Left" Margin="655,152,0,0" VerticalAlignment="Top" Click="btnDeposit_Click"/>
+        <Button x:Name="btnWithdraw" Content="Withdraw" HorizontalAlignment="Left" Margin="675,201,0,0" VerticalAlignment="Top" Click="btnWithdraw_Click"/>
+        <Button x:Name="btnInterest" Content="Interest" HorizontalAlignment="Left" Margin="684,252,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="442,303,0,0" TextWrapping="Wrap" Text="Transaction Amount" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxTransactionAmount" HorizontalAlignment="Left" Margin="442,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
 
 

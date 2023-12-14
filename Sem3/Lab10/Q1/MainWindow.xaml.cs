@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -94,5 +95,44 @@ namespace Q1
             ManageCheckboxes();
         }
 
+        private void HandleTransaction(Action<Account, double> transactionAction)
+        {
+            Account? chosenAccount = lbxAccounts.SelectedItem as Account;
+
+            if (chosenAccount == null)
+            {
+                MessageBox.Show("Pick an account first");
+                return;
+            }
+
+            string amountStr = tbxTransactionAmount.Text;
+            bool parsingResult = double.TryParse(amountStr, out double amount);
+
+            if (!parsingResult)
+            {
+                MessageBox.Show("Not a valid transaction amount");
+                return;
+            }
+
+            try
+            {
+                transactionAction(chosenAccount, amount);
+                txtBalance.Text = $"{chosenAccount.Balance}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Transaction failed: {ex.Message}");
+            }
+        }
+
+        private void btnDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            HandleTransaction((chosenAccount, amount) => chosenAccount.Deposit(amount));
+        }
+
+        private void btnWithdraw_Click(object sender, RoutedEventArgs e)
+        {
+            HandleTransaction((chosenAccount, amount) => chosenAccount.Withdraw(amount));
+        }
     }
 }
