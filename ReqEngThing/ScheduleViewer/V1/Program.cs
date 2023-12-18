@@ -7,6 +7,12 @@ namespace V1
     {
         static void Main(string[] args)
         {
+            /*
+             * An example section of the app that's responsible for dealing with the timetable data
+             * mainly to order and prepare for displaying, and to display it too for this simple console app demo
+             */
+
+            // creating a few modules, courses etc.
             Module m1 = new("M123", "Math");
             Module m2 = new("W542", "Web design");
 
@@ -16,6 +22,7 @@ namespace V1
             Room r2 = new("D1000", RoomCategory.Lecturehall);
 
             Lecturer l1 = new("J1B", "Joe Biden", "joe@biden");
+
 
             // you can create as many lessons as you want here
             ScheduledLesson s1 = new(m1, c1, new DateTime(2022, 1, 3, 9, 0, 0), new DateTime(2022, 1, 3, 10, 0, 0), l1, r1);
@@ -28,8 +35,6 @@ namespace V1
             CourseTimetable ct = new(lessons, new DateTime(2022, 1, 3), c1.CourseCode);
 
             ct.DisplayTimetable();
-
-
         }
     }
 
@@ -232,7 +237,6 @@ namespace V1
             return $"{base.ToString()}, RoomId: {RoomId}";
         }
     }
-
 
 
     public static class EnumerableExtension
