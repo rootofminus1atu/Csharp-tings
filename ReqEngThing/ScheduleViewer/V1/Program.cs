@@ -15,16 +15,20 @@ namespace V1
             Room r1 = new("B1232", RoomCategory.Lab);
             Room r2 = new("D1000", RoomCategory.Lecturehall);
 
-            Lecturer l1 = new("J", "Joe", "joe@biden");
+            Lecturer l1 = new("J1B", "Joe Biden", "joe@biden");
 
-
+            // you can create as many lessons as you want here
             ScheduledLesson s1 = new(m1, c1, new DateTime(2022, 1, 3, 9, 0, 0), new DateTime(2022, 1, 3, 10, 0, 0), l1, r1);
             ScheduledLesson s2 = new(m1, c1, new DateTime(2022, 1, 3, 12, 0, 0), new DateTime(2022, 1, 3, 13, 0, 0), l1, r2);
             ScheduledLesson s3 = new(m2, c1, new DateTime(2022, 1, 4, 14, 0, 0), new DateTime(2022, 1, 4, 16, 0, 0), l1, r1);
-
-            CourseTimetable ct = new(new List<ScheduledLesson>() { s1, s2, s3 }, new DateTime(2022, 1, 3), c1.CourseCode);
+            // as long as they're in the schedule's timeframe (from 3rd Jan to 8th) they should be displayed in it
+            
+            // don't forget to include them in the list down below
+            List<ScheduledLesson> lessons = new() { s1, s2, s3 };
+            CourseTimetable ct = new(lessons, new DateTime(2022, 1, 3), c1.CourseCode);
 
             ct.DisplayTimetable();
+
 
         }
     }
@@ -158,19 +162,28 @@ namespace V1
     public abstract class Timetable
     {
         public List<ScheduledLesson> ScheduledLessons { get; set; }
-        public DateTime WeekMonday { get; set; }  // probably change this
-        public DateTime WeekFriday => WeekMonday.AddDays(5);  // and this
+        public DateTime WeekStart { get; set; }
+        public DateTime WeekEnd => WeekStart.AddDays(5);
 
 
-        public Timetable(List<ScheduledLesson> lessons, DateTime weekMonday)
+        public Timetable(List<ScheduledLesson> lessons, DateTime weekStart)
         {
             ScheduledLessons = lessons;
-            WeekMonday = weekMonday;
+            WeekStart = weekStart;
         }
 
         public override string ToString()
         {
             return $"ScheduledLessons: {ScheduledLessons.Stringify()}";
+        }
+
+        public List<List<ScheduledLesson>> DivideIntoWeekDays()
+        {
+            return ScheduledLessons
+                .GroupBy(l => l.TimeStart.Day)
+                .Select(g => g.ToList())
+                .Select(g => { g.Sort(); return g; })
+                .ToList();
         }
     }
 
@@ -178,24 +191,19 @@ namespace V1
     {
         public string CourseCode { get; set; }
 
-        public CourseTimetable(List<ScheduledLesson> lessons, DateTime weekMonday, string courseCode) : base(lessons, weekMonday)
+        public CourseTimetable(List<ScheduledLesson> lessons, DateTime weekStart, string courseCode) : base(lessons, weekStart)
         {
             CourseCode = courseCode;
         }
 
         public void DisplayTimetable()
         {
-            Console.WriteLine($"Course timetable for {WeekMonday.ToShortDateString()} - {WeekFriday.ToShortDateString()}");
+            Console.WriteLine($"Course timetable for {WeekStart.ToShortDateString()} - {WeekEnd.ToShortDateString()}");
 
-            var weekDividedLessons = ScheduledLessons
-                .GroupBy(l => l.TimeStart.Day)
-                .Select(g => g.ToList())
-                .ToList();
+            var weekDividedLessons = DivideIntoWeekDays();
 
             foreach (var dayLessons in weekDividedLessons)
             {
-                dayLessons.Sort();
-
                 Console.WriteLine($"=== {dayLessons[0].DayOfWeek} ===");
                 foreach (var lesson in dayLessons)
                 {
@@ -214,7 +222,7 @@ namespace V1
     {
         public string RoomId { get; set; }
 
-        public RoomTimetable(List<ScheduledLesson> lessons, DateTime weekMonday, string roomId) : base(lessons, weekMonday)
+        public RoomTimetable(List<ScheduledLesson> lessons, DateTime weekStart, string roomId) : base(lessons, weekStart)
         {
             RoomId = roomId;
         }
@@ -240,7 +248,13 @@ namespace V1
             return $"[ {string.Join(", ", list)} ]";
         }
 
-
+        /// <summary>
+        /// Returns a dev-friendly string representation of an <see cref="IEnumerable{T}"/> with a given delimeter string.
+        /// </summary>
+        /// <typeparam name="T">The type of items in the enumerable.</typeparam>
+        /// <param name="list">The enumerable to stringify.</param>
+        /// <param name="delimeter">The delimter.</param>
+        /// <returns>A string representation of the enumerable.</returns>
         public static string Stringify<T>(this IEnumerable<T> list, string delimeter)
         {
             return $"[ {string.Join(delimeter, list)} ]";
