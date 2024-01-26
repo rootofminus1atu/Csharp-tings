@@ -1,0 +1,6 @@
+Band: Party Poppers
+Formed: 2012
+Members: m1, m2
+Albums:
+- Pop Paradise, released in 2018, worth €13.00
+- Dance Delight, released in 2009, worth €387.00
