@@ -1,0 +1,15 @@
+﻿<Window x:Class="first_attempt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:first_attempt"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" SourceInitialized="Window_SourceInitialized">
+    <Grid>
+        <ComboBox x:Name="cbxWindows" HorizontalAlignment="Left" Margin="302,155,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbxWindows_SelectionChanged" DropDownOpened="cbxWindows_DropDownOpened"/>
+        <Button x:Name="btnDoFunny" Content="Button" HorizontalAlignment="Left" Margin="503,79,0,0" VerticalAlignment="Top" Height="34" Width="108" Click="btnDoFunny_Click"/>
+        <TextBox x:Name="tbxWriteHere" HorizontalAlignment="Left" Margin="99,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>
