@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using GlobalHotKey;
 using NHotkey.Wpf;
 using NHotkey;
+using NonInvasiveKeyboardHookLibrary;
 
 namespace first_attempt
 {
@@ -26,20 +27,23 @@ namespace first_attempt
     public partial class MainWindow : Window
     {
         private string pasteThis = "Hellooo";
-
+        private KeyboardHookManager keyboardHookManager;
+        
+        
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void OnPress(object sender, HotkeyEventArgs e)
-        {
-            Trace.WriteLine("WOOOAH");
+            keyboardHookManager = new KeyboardHookManager();
+            keyboardHookManager.Start();
+            keyboardHookManager.RegisterHotkey(0x60, () =>
+            {
+                Debug.WriteLine("NumPad0 detected");
+            });
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
 
             // do this in the combobox
 
