@@ -1,0 +1,123 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl TabStripPlacement="Top">
+            <TabItem Name="Ex1" Header="Ex1" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnQuery1" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnQuery1_Click"/>
+                    <ListBox x:Name="lbxEx1" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex2" Header="Ex2" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx2_Click"/>
+                    <DataGrid x:Name="dgEx2" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex3" Header="Ex3" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx3" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx3_Click"/>
+                    <DataGrid x:Name="dgEx3" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex4" Header="Ex4" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx4" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx4_Click"/>
+                    <DataGrid x:Name="dgEx4" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex5" Header="Ex5" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx5" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx5_Click"/>
+                    <DataGrid x:Name="dgEx5" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex6" Header="Ex6" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx6" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx6_Click"/>
+                    <DataGrid x:Name="dgEx6" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex7" Header="Ex7" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx7" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx7_Click"/>
+                    <DataGrid x:Name="dgEx7" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex8" Header="Ex8" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx8" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx8_Click"/>
+                    <DataGrid x:Name="dgEx8" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="Ex9" Header="Ex9" Width="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnEx9" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnEx9_Click"/>
+                    <DataGrid x:Name="dgEx9" Grid.Row="1" Grid.Column="0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+
+    </Grid>
+</Window>
