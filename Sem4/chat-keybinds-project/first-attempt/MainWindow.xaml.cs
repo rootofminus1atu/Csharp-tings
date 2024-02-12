@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Forms;
 using GlobalHotKey;
 using NHotkey.Wpf;
 using NHotkey;
@@ -95,9 +94,37 @@ namespace first_attempt
 
         private void tabPasteEnter()
         {
-            SendKeys.SendWait("{TAB}");
-            SendKeys.SendWait(pasteThis);
-            SendKeys.SendWait("{ENTER}");
+            System.Windows.Forms.SendKeys.SendWait("{TAB}");
+            System.Windows.Forms.SendKeys.SendWait(pasteThis);
+            System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+        }
+
+        private void btnKeyInput_Click(object sender, RoutedEventArgs e)
+        {
+            ((Button)sender).IsEnabled = false;
+
+            this.KeyDown += OnInputEvent;
+            this.MouseDown += OnInputEvent;
+
+            
+            Trace.WriteLine("Press any key or mouse button...");
+        }
+
+        private void OnInputEvent(object sender, RoutedEventArgs e)
+        {
+            if (e is KeyEventArgs keyArgs)
+            {
+                Trace.WriteLine($"Key pressed: {keyArgs.Key}");
+            }
+            else if (e is MouseButtonEventArgs mouseArgs)
+            {
+                Trace.WriteLine($"Mouse button pressed: {mouseArgs.ChangedButton}");
+            }
+
+            btnKeyInput.IsEnabled = true;
+
+            this.KeyDown -= OnInputEvent;
+            this.MouseDown -= OnInputEvent;
         }
     }
 }

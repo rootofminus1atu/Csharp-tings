@@ -7,9 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
+        <local:KeyMouseInputButton Width="60" Height="30"></local:KeyMouseInputButton>
+
+
         <ComboBox x:Name="cbxWindows" HorizontalAlignment="Left" Margin="302,155,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbxWindows_SelectionChanged" DropDownOpened="cbxWindows_DropDownOpened"/>
         <Button x:Name="btnDoFunny" Content="Button" HorizontalAlignment="Left" Margin="503,79,0,0" VerticalAlignment="Top" Height="34" Width="108" Click="btnDoFunny_Click"/>
         <TextBox x:Name="tbxWriteHere" HorizontalAlignment="Left" Margin="99,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnKeyInput" Content="Key Input Test" HorizontalAlignment="Left" Margin="503,334,0,0" VerticalAlignment="Top" Click="btnKeyInput_Click"/>
 
     </Grid>
 </Window>
