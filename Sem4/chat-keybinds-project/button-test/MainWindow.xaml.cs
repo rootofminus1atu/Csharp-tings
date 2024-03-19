@@ -67,5 +67,20 @@ namespace button_test
                 btnMainWindowInput.Content = "Press a key";
             }
         }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            this.KeyDown += OnTestButtonInputEvent;
+        }
+
+        private void OnTestButtonInputEvent(object sender, RoutedEventArgs e)
+        {
+            if (e is KeyEventArgs keyArgs)
+            {
+                Trace.WriteLine($"Key pressed: {keyArgs.Key}");
+            }
+
+            this.KeyDown -= OnTestButtonInputEvent;
+        }
     }
 }

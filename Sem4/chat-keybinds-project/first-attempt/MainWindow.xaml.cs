@@ -21,18 +21,40 @@ using NonInvasiveKeyboardHookLibrary;
 namespace first_attempt
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// The app
+    /// 
+    /// I sadly was not able to record a video, but I wrote some comments to make it easier to understand what's being built here.
+    /// Although this is a very heavy WIP, so it is messy and can get confusing.
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Test variable to see if it's possible to past text automatically somewhere. It is!
+        /// </summary>
         private string pasteThis = "Hellooo";
+
+        /// <summary>
+        /// The keyboard hook manager that will listen to keyboard presses and see if any hotkeys were pressed.
+        /// </summary>
         private KeyboardHookManager keyboardHookManager;
+
         
+        /// <summary>
+        /// Currently using this as a way to keep track of what the user wants to say and what button should activate that.
+        /// They will have an option to change the hotkey, the text, to add or delete new entries.
+        /// </summary>
+        public List<ThingToSay> thingsToSay = new()
+        {
+            new ThingToSay("Fire in the hole", null),
+            new ThingToSay("Hello everyone", "H")
+        };
         
         public MainWindow()
         {
             InitializeComponent();
+            dgThingsToSay.ItemsSource = thingsToSay;
 
+            // setting up the keyboard hook, currently just testing it out with a NumPad0 press
             keyboardHookManager = new KeyboardHookManager();
             keyboardHookManager.Start();
             keyboardHookManager.RegisterHotkey(0x60, () =>
@@ -43,55 +65,28 @@ namespace first_attempt
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            // do this in the combobox
-
-            Trace.WriteLine("WOA");
-
+            // getting all open windows
+            // doing that so that later we could allow the user to pick a configuration for a given open application
+            // for example if they have Discord and Minecraft open, those 2 should show up from a dropdown
+            // and then the user can pick a configuration for them
+            // for example for Minecraft they can pick the chat button to be 'T'
+            // while for discord the chat button would be 'Enter'
             var openWindowProcesses = Process.GetProcesses()
                 .Where(p => p.MainWindowHandle != IntPtr.Zero && p.ProcessName != "explorer");
 
+            // debug printing
             foreach (var window in openWindowProcesses)
             {
                 Trace.WriteLine(window.ProcessName);
             }
-
-            Trace.WriteLine("WOA end");
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
         }
 
 
-        private void cbxWindows_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
-
-        private void cbxWindows_DropDownOpened(object sender, EventArgs e)
-        {
-            Trace.WriteLine("hii");
-        }
-
-        
-
-        private void btnDoFunny_Click(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("Doing the funnny");
-
-
-
-            Trace.WriteLine("before");
-
-            System.Threading.Thread.Sleep(1000);
-
-            
-
-            Trace.WriteLine("after");
-        }
-
+        /// <summary>
+        /// For testing purposes.
+        /// Testing how to click keys and write text on the behalf of the user.
+        /// </summary>
         private void tabPasteEnter()
         {
             System.Windows.Forms.SendKeys.SendWait("{TAB}");
@@ -99,32 +94,5 @@ namespace first_attempt
             System.Windows.Forms.SendKeys.SendWait("{ENTER}");
         }
 
-        private void btnKeyInput_Click(object sender, RoutedEventArgs e)
-        {
-            ((Button)sender).IsEnabled = false;
-
-            this.KeyDown += OnInputEvent;
-            this.MouseDown += OnInputEvent;
-
-            
-            Trace.WriteLine("Press any key or mouse button...");
-        }
-
-        private void OnInputEvent(object sender, RoutedEventArgs e)
-        {
-            if (e is KeyEventArgs keyArgs)
-            {
-                Trace.WriteLine($"Key pressed: {keyArgs.Key}");
-            }
-            else if (e is MouseButtonEventArgs mouseArgs)
-            {
-                Trace.WriteLine($"Mouse button pressed: {mouseArgs.ChangedButton}");
-            }
-
-            btnKeyInput.IsEnabled = true;
-
-            this.KeyDown -= OnInputEvent;
-            this.MouseDown -= OnInputEvent;
-        }
     }
 }

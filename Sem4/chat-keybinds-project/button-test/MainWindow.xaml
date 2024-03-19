@@ -9,6 +9,10 @@
     <Grid>
         <Button x:Name="btnMainWindowInput" Content="Button" HorizontalAlignment="Left" Margin="108,88,0,0" VerticalAlignment="Top" Click="btnMainWindowInput_Click"/>
 
-        <local:CustomInput Width="60" Height="30"></local:CustomInput>
+        <!--<local:CustomInput Width="60" Height="30"></local:CustomInput>-->
+        
+        <Button x:Name="btnTest" Content="Button" HorizontalAlignment="Left" Margin="619,120,0,0" VerticalAlignment="Top" Click="btnTest_Click"/>
+        <local:UserControl1 Width="60" Height="30"></local:UserControl1>
+    
     </Grid>
 </Window>
