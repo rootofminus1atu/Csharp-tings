@@ -1,0 +1,14 @@
+﻿
+@model InsuranceModels.Person;
+
+<form asp-action="CalculateQuote" method="post">
+    <div>
+        <label for="age">Age:</label>
+        <input type="number" name="Age" required />
+    </div>
+    <div>
+        <label for="location">Location:</label>
+        <input type="text" name="Location" required />
+    </div>
+    <button type="submit">Get Quote</button>
+</form>
