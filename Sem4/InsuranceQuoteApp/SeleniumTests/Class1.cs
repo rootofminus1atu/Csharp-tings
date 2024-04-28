@@ -11,6 +11,7 @@
     using OpenQA.Selenium.Support.UI;
     using OpenQA.Selenium.Chrome;
     using SeleniumExtras.WaitHelpers;
+    using System.Diagnostics;
 
     [TestFixture]
     public class T2
@@ -19,10 +20,13 @@
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
+        // for some reason when running the webapp from the console it uses a different port
+        private string localhostURL = "http://localhost:5290";
 
         [SetUp]
         public void SetupTest()
         {
+            Trace.WriteLine("bruh");
             driver = new EdgeDriver();
             baseURL = "https://www.google.com/";
             verificationErrors = new StringBuilder();
@@ -43,35 +47,118 @@
         }
 
         [Test]
+        public void InvalidLocation()
+        {
+            int age = 20;
+            string location = "mars";
+            decimal expected = 0m;
+
+            string res = FillOutFormAndGetResult(age, location);
+
+            Assert.That(res, Is.EqualTo(QuoteInformation(expected)));
+        }
+
+        [Test]
+        public void RuralAndValidAge()
+        {
+            int age = 25;
+            string location = "rural";
+            decimal expected = 5m;
+
+            string res = FillOutFormAndGetResult(age, location);
+
+            Assert.That(res, Is.EqualTo(QuoteInformation(expected)));
+        }
+
+        [Test]
+        public void RuralAndBoundary()
+        {
+            int age = 31;
+            string location = "rural";
+            decimal expected = 2.5m;
+
+            string res = FillOutFormAndGetResult(age, location);
+
+            Assert.That(res, Is.EqualTo(QuoteInformation(expected)));
+        }
+
+        [Test]
+        public void RuralAndInvalid()
+        {
+            int age = 2;
+            string location = "rural";
+            decimal expected = 0m;
+
+            string res = FillOutFormAndGetResult(age, location);
+
+            Assert.That(res, Is.EqualTo(QuoteInformation(expected)));
+        }
+
+        [Test]
+        public void UrbanAndBoundary()
+        {
+            int age = 35;
+            string location = "urban";
+            decimal expected = 6m;
+
+            string res = FillOutFormAndGetResult(age, location);
+
+            Assert.That(res, Is.EqualTo(QuoteInformation(expected)));
+        }
+
+
+        private static string QuoteInformation(decimal quote)
+        {
+            return $"Your quote is: {quote}";
+        }
+
+        private string FillOutFormAndGetResult(int age, string location)
+        {
+            driver.Navigate().GoToUrl($"{localhostURL}");
+
+            driver.FindElement(By.Name("Age")).Click();
+            driver.FindElement(By.Name("Age")).Clear();
+            driver.FindElement(By.Name("Age")).SendKeys(age.ToString());
+
+            driver.FindElement(By.Name("Location")).Click();
+            driver.FindElement(By.Name("Location")).Clear();
+            driver.FindElement(By.Name("Location")).SendKeys(location);
+
+            driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+
+            string res = driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")).Text;
+
+            return res;
+        }
+        
+        /*
+        [Test]
         public void TheT2Test()
         {
             //driver.Navigate().GoToUrl("https://localhost:7254/Insurance/CalculateQuote");
             //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Privacy'])[2]/following::a[1]")).Click();
-            driver.Navigate().GoToUrl("https://localhost:7254/Insurance/Index");
+
+            driver.Navigate().GoToUrl($"{localhostURL}"); 
+
             driver.FindElement(By.Name("Age")).Click();
             driver.FindElement(By.Name("Age")).Clear();
-            driver.FindElement(By.Name("Age")).SendKeys("1");
-            driver.FindElement(By.Name("Age")).Click();
-            driver.FindElement(By.Name("Age")).Clear();
-            driver.FindElement(By.Name("Age")).SendKeys("2");
-            driver.FindElement(By.Name("Age")).Click();
-            // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=Age | ]]
+            driver.FindElement(By.Name("Age")).SendKeys("20");
+
             driver.FindElement(By.Name("Location")).Click();
             driver.FindElement(By.Name("Location")).Clear();
-            driver.FindElement(By.Name("Location")).SendKeys("sligo");
+            driver.FindElement(By.Name("Location")).SendKeys("rural");
+
             driver.FindElement(By.XPath("//button[@type='submit']")).Click();
-           // driver.Navigate().GoToUrl("https://localhost:7254/Insurance/CalculateQuote");
-            
-           // driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
-            
-           
+
+            // driver.Navigate().GoToUrl("https://localhost:7254/Insurance/CalculateQuote");
+            // driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(30);
             //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             //wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")));
-
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")).Click();
+            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")).Click();
+            
             try
             {
-                Assert.That("Your quote is: 50", Is.EqualTo(driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")).Text));
+                Assert.That("Your quote is: 5", Is.EqualTo(driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Your Insurance Quote'])[1]/following::p[1]")).Text));
             }
             catch (AssertionException e)
             {
@@ -125,6 +212,7 @@
                 acceptNextAlert = true;
             }
         }
+        */
     }
 
 }

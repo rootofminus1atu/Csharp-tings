@@ -33,10 +33,10 @@ namespace q1
             double premium = 0;
 
             if (age < 18)
-                premium = 0;
+                return 0;
 
             if (location != "rural" && location != "urban") 
-                premium = 0;
+                return = 0;
 
 
             if (location == "rural")
