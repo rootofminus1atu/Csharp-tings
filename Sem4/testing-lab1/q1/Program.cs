@@ -36,7 +36,7 @@ namespace q1
                 return 0;
 
             if (location != "rural" && location != "urban") 
-                return = 0;
+                return 0;
 
 
             if (location == "rural")
@@ -85,6 +85,7 @@ namespace q1
         }
     }
 
+    /*
     [TestFixture]
     public class InsuranceServiceTests
     {
@@ -101,5 +102,6 @@ namespace q1
             //Assert.That(res, Is.EqualTo(5));
         }
     }
+    */
 
 }

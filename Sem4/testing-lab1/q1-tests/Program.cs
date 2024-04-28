@@ -20,10 +20,34 @@ namespace q1_tests
         }
 
         [Test]
-        public void Insurance()
+        public void InsuranceInvalidLocation()
         {
-            int age = 19;
+            string location = "mars";
+            int age = 20;
+            double expected = 0;
+
+            double res = insuranceService.CalcPremium(age, location);
+
+            Assert.That(res, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void InsuranceInvalidAge()
+        {
             string location = "rural";
+            int age = 2;
+            double expected = 0;
+
+            double res = insuranceService.CalcPremium(age, location);
+
+            Assert.That(res, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void InsuranceRuralYoung()
+        {
+            string location = "rural";
+            int age = 25;
             double expected = 5;
 
             double res = insuranceService.CalcPremium(age, location);
@@ -32,14 +56,39 @@ namespace q1_tests
         }
 
         [Test]
-        public void Insurance2()
+        public void InsuranceRuralOld()
         {
-            // location 
-            // valid:
-            //   "urban"
-            //   "rural"
-            //
+            string location = "rural";
+            int age = 60;
+            double expected = 2;
 
+            double res = insuranceService.CalcPremium(age, location);
+
+            Assert.That(res, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void InsuranceUrbanYoung()
+        {
+            string location = "urban";
+            int age = 22;
+            double expected = 6;
+
+            double res = insuranceService.CalcPremium(age, location);
+
+            Assert.That(res, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void InsuranceUrbanOld()
+        {
+            string location = "urban";
+            int age = 39;
+            double expected = 5;
+
+            double res = insuranceService.CalcPremium(age, location);
+
+            Assert.That(res, Is.EqualTo(expected));
         }
     }
 }
