@@ -26,7 +26,6 @@
         [SetUp]
         public void SetupTest()
         {
-            Trace.WriteLine("bruh");
             driver = new EdgeDriver();
             baseURL = "https://www.google.com/";
             verificationErrors = new StringBuilder();
