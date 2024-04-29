@@ -32,16 +32,6 @@ namespace switching_pages
         private void AddTodoButPage_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AddTodo(todoItems));
-            // how to navigate from here to a page called `AddTodo`?
-            // besides that, how can i return data from that page to here so that I could add a todo item to the list?
-            /*
-            string newTodoText = NewTodoTextBox.Text.Trim();
-            if (!string.IsNullOrWhiteSpace(newTodoText))
-            {
-                todoItems.Add(new TodoItem { Text = newTodoText });
-                NewTodoTextBox.Clear();
-            }*/
-            // todoItems.Add(new TodoItem { Text = "hi" });
         }
 
         private void RemoveTodo_Click(object sender, RoutedEventArgs e)
