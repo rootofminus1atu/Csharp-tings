@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "attempt-1", "attempt-1\attempt-1.csproj", "{34343EDA-017E-48AE-9F9A-F11962ED39CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-test", "project-test\project-test.csproj", "{5A068635-D5B1-40BC-90AC-FC9AAA7B9729}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "switching-pages", "switching-pages\switching-pages.csproj", "{0F83F616-A646-4459-A912-49B412E6B5CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{34343EDA-017E-48AE-9F9A-F11962ED39CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34343EDA-017E-48AE-9F9A-F11962ED39CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34343EDA-017E-48AE-9F9A-F11962ED39CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A068635-D5B1-40BC-90AC-FC9AAA7B9729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A068635-D5B1-40BC-90AC-FC9AAA7B9729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A068635-D5B1-40BC-90AC-FC9AAA7B9729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A068635-D5B1-40BC-90AC-FC9AAA7B9729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F83F616-A646-4459-A912-49B412E6B5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F83F616-A646-4459-A912-49B412E6B5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F83F616-A646-4459-A912-49B412E6B5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F83F616-A646-4459-A912-49B412E6B5CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,13 @@
-﻿<Window x:Class="attempt_1.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:attempt_1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+﻿<Page x:Class="switching_pages.Config"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:switching_pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Config">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,8 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" x:Name="NewTodoTextBox" Margin="10" />
-        <Button Grid.Row="1" Margin="10,0" Content="Add Todo" Click="AddTodo_Click"/>
+        <Button Grid.Row="0" x:Name="AddTodoButPage" Content="Add Todo" Margin="10,10" Click="AddTodoButPage_Click"/>
 
         <ListBox Grid.Row="2" x:Name="TodoListBox" Margin="10" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
@@ -43,4 +44,4 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
-</Window>
+</Page>

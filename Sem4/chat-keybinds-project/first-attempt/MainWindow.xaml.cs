@@ -17,6 +17,7 @@ using GlobalHotKey;
 using NHotkey.Wpf;
 using NHotkey;
 using NonInvasiveKeyboardHookLibrary;
+using System.Runtime.InteropServices;
 
 namespace first_attempt
 {
@@ -28,6 +29,37 @@ namespace first_attempt
     /// </summary>
     public partial class MainWindow : Window
     {
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder text, int count);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        private string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder sb = new StringBuilder(nChars);
+            IntPtr hWnd = GetForegroundWindow();
+
+            if (hWnd != IntPtr.Zero)
+            {
+                GetWindowText(hWnd, sb, nChars);
+            }
+
+            return sb.ToString();
+        }
+        private string GetActiveProcessName()
+        {
+            IntPtr hwnd = GetForegroundWindow();
+            uint processId;
+            GetWindowThreadProcessId(hwnd, out processId);
+            Process process = Process.GetProcessById((int)processId);
+            return process.ProcessName;
+        }
+
         /// <summary>
         /// Test variable to see if it's possible to past text automatically somewhere. It is!
         /// </summary>
@@ -60,6 +92,10 @@ namespace first_attempt
             keyboardHookManager.RegisterHotkey(0x60, () =>
             {
                 Debug.WriteLine("NumPad0 detected");
+                // get the current open window and print it to the console
+
+                var currentWindow = GetActiveProcessName();
+                Trace.WriteLine("Current Active Window: " + currentWindow);
             });
         }
 
@@ -81,6 +117,12 @@ namespace first_attempt
             }
         }
 
+        private static IEnumerable<Process> GetProcesses()
+        {
+            return Process.GetProcesses()
+                .Where(p => p.MainWindowHandle != IntPtr.Zero && p.ProcessName != "explorer");
+        }
+
 
 
         /// <summary>
@@ -94,5 +136,19 @@ namespace first_attempt
             System.Windows.Forms.SendKeys.SendWait("{ENTER}");
         }
 
+        private void cbxWindows_DropDownOpened(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbxWindows_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnKeyInput_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
