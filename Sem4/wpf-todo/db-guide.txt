@@ -1,0 +1,33 @@
+1. install EntityFramework (not the core one, idk why not)
+2. create some initial class db stuff (default constructor for the Db), ex:
+    public class Player
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public int TeamId { get; set; }
+        public virtual Team Team { get; set; }
+    }
+
+    public class Team
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual List<Player> Players { get; set; } = new List<Player>();
+    }
+
+    public class Db : DbContext
+    {
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Team> Teams { get; set; }
+
+        public Db() : base() { }
+	// connect with `Db db = new Db();` in main
+    }
+
+2. run package manager console:
+- Enable-Migrations
+- Add-Migration initial (IMPORTANT TO HAVE AN INITIAL ONE)
+- Update-Database
+
+3. edit code and after an edit run Add-Migration and Update-Database
