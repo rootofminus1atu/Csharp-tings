@@ -1,0 +1,38 @@
+1. install the thing with this command in the package manager console
+- Install-Package Microsoft.EntityFrameworkCore.Sqlite -Version 3.1.22
+2. code example:
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace pages_and_db
+{
+    public class TodoItemFromDb
+    {
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public bool IsCompleted { get; set; }
+    }
+
+    public class Db : DbContext
+    {
+        public DbSet<TodoItemFromDb> TodoItemsFromDb { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Specify SQLite as the database provider and configure the connection string
+            optionsBuilder.UseSqlite("Data Source=todo.db");
+        }
+    }
+}
+```
+3. run package manager console:
+- Enable-Migrations
+- Add-Migration initial (IMPORTANT TO HAVE AN INITIAL ONE)
+- Update-Database
+
+4. on second thought, no.

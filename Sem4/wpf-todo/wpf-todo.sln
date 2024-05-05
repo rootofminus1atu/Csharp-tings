@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "switching-pages", "switchin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "code-first-db-v4", "code-first-db-v4\code-first-db-v4.csproj", "{86552779-DD46-4493-BA6E-2446FBF6C6B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pages-and-db-v3", "pages-and-db-v3\pages-and-db-v3.csproj", "{49C6F654-EF6E-4D74-992B-B7AEA4530F78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{86552779-DD46-4493-BA6E-2446FBF6C6B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86552779-DD46-4493-BA6E-2446FBF6C6B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86552779-DD46-4493-BA6E-2446FBF6C6B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C6F654-EF6E-4D74-992B-B7AEA4530F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C6F654-EF6E-4D74-992B-B7AEA4530F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C6F654-EF6E-4D74-992B-B7AEA4530F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C6F654-EF6E-4D74-992B-B7AEA4530F78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
