@@ -19,5 +19,10 @@ namespace Q1
         {
             return $"{Title} with {ImageName}";
         }
+
+        public static int Add(int n, int m)
+        {
+            return n + m;
+        }
     }
 }

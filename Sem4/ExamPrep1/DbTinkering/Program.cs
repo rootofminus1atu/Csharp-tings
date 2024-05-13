@@ -23,6 +23,7 @@ namespace DbTinkering
 
                     Movie m3 = new Movie() { MovieID = 3, Title = "The Quiet Girl", Cast = "Carrie Crowley, Andrew Bennett, Catherine Clinch", ImageName = "\\images\\quietgirl.jpg", Description = "Rural Ireland 1981. A quiet, neglected girl is sent away from her dysfunctional family to live with foster parents for the summer. She blossoms in their care, but in this house where there are meant to be no secrets, she discovers one." };
 
+                    // db.Movies.AddRange(new Movie[] { m1, m2, m3 });
                     db.Movies.Add(m1);
                     db.Movies.Add(m2);
                     db.Movies.Add(m3);

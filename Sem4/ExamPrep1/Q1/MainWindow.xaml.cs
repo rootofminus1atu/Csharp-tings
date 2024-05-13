@@ -61,6 +61,7 @@ namespace Q1
             {
                 txtDescription.Text = selectedMovie.Description;
 
+                // below part just for automatic available seats refreshing (not needed)
                 if (dpDate.SelectedDate is DateTime selectedDate)
                 {
                     RefreshAvailableSeats(GetAvailableSeats(selectedMovie, selectedDate));

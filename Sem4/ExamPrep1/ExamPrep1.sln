@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q1", "Q1\Q1.csproj", "{42F3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbTinkering", "DbTinkering\DbTinkering.csproj", "{D778B11E-FDC6-4EF9-8E62-8411C9905C91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q1Tests", "Q1Tests\Q1Tests.csproj", "{1229EC2C-D9EB-4C60-A13E-06C16770F22A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D778B11E-FDC6-4EF9-8E62-8411C9905C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D778B11E-FDC6-4EF9-8E62-8411C9905C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D778B11E-FDC6-4EF9-8E62-8411C9905C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1229EC2C-D9EB-4C60-A13E-06C16770F22A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1229EC2C-D9EB-4C60-A13E-06C16770F22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1229EC2C-D9EB-4C60-A13E-06C16770F22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1229EC2C-D9EB-4C60-A13E-06C16770F22A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
