@@ -67,16 +67,16 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Select movie from list above, choose date and tickets required" TextWrapping="Wrap"/>
-            <DatePicker x:Name="dpDate" Grid.Column="1" Text="Select a date" Width="100" Height="25" />
+            <DatePicker x:Name="dpDate" Grid.Column="1" Text="Select a date" Width="100" Height="25" SelectedDateChanged="dpDate_SelectedDateChanged" />
             <StackPanel Grid.Column="2" Orientation="Vertical">
                 <TextBlock Text="Available Seats" />
-                <TextBlock x:Name="txtAvailableSeats" Text="100" />
+                <TextBlock x:Name="txtAvailableSeats" Text="SELECT A MOVIE FIRST" />
             </StackPanel>
             <StackPanel Grid.Column="3" Orientation="Vertical">
                 <TextBlock Text="Required seats" />
                 <TextBox x:Name="tblkRequiredSeats" Text="0" />
             </StackPanel>
-            <Button x:Name="btnBookSeats" Grid.Column="4" Content="Book Seats" Width="80" Height="25" />
+            <Button x:Name="btnBookSeats" Grid.Column="4" Content="Book Seats" Width="80" Height="25" Click="btnBookSeats_Click" />
 
         </Grid>
         
