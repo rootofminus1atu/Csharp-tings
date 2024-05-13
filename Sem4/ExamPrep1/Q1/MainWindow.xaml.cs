@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,31 @@ namespace Q1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MovieData db = new MovieData();
         public MainWindow()
         {
             InitializeComponent();
+            LoadMovies();
+        }
+
+        private void LoadMovies()
+        {
+            using(db)
+            {
+                lbxMovies.ItemsSource = db.Movies.ToList();
+            }
+        }
+
+        private void lbxMovies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbxMovies.SelectedItem is Movie selectedMovie)
+            {
+                txtDescription.Text = selectedMovie.Description;
+            } 
+            else
+            {
+                txtDescription.Text = string.Empty;
+            }
         }
     }
 }

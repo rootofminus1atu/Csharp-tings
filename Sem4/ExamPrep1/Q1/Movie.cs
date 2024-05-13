@@ -14,5 +14,10 @@ namespace Q1
         public string Description { get; set; }
         public string Cast { get; set; }
         public virtual List<Booking> Bookings { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Title} with {ImageName}";
+        }
     }
 }
