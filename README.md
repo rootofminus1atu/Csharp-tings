@@ -1,2 +1,2 @@
 # Csharp-tings
- honestly a cool language
+ c# code-samples and semi-projects
