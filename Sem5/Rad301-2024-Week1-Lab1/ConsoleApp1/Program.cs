@@ -72,10 +72,6 @@ namespace ConsoleApp1
             var sevenC = sevenCQuery.ToList();
             Console.WriteLine(sevenC.ToDebugString());
 
-
-
-
-
             Console.ReadKey();
         }
     }
