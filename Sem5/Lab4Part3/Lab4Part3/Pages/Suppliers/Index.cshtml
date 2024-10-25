@@ -1,0 +1,48 @@
+﻿@page
+@model Lab4Part3.Pages.Suppliers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier[0].SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier[0].SupplierAddressLine1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier[0].AddressLine2)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Supplier) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierAddressLine1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressLine2)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SupplierID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.SupplierID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.SupplierID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

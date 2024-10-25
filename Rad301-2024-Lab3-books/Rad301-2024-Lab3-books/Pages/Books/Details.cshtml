@@ -1,0 +1,61 @@
+﻿@page
+@model Rad301_2024_Lab3_books.Pages.Books.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.Summary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Summary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.Publication)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Publication)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.AuthorID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.AuthorID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.PublisherID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.PublisherID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.DateOfPublication)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.DateOfPublication)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.CoverPageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/Images/@Model.Book.CoverPageUrl" alt="Cover Image" style="width: 400px;" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Book.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
