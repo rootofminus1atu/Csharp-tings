@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RADLab3Solution", "RADLab3Solution\RADLab3Solution.csproj", "{C8ADEA19-E962-40F5-8CFE-C0F187089C4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8ADEA19-E962-40F5-8CFE-C0F187089C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8ADEA19-E962-40F5-8CFE-C0F187089C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8ADEA19-E962-40F5-8CFE-C0F187089C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8ADEA19-E962-40F5-8CFE-C0F187089C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41599874-0851-4199-AB64-8EC003A1D4E4}
+	EndGlobalSection
+EndGlobal

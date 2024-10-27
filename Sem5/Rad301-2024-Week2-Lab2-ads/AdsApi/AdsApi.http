@@ -23,8 +23,7 @@ GET {{AdsApi_HostAddress}}/ads/1
 PUT {{AdsApi_HostAddress}}/ads/1
 Content-Type: application/json
 {
-  "name": "feed fish",
-  "isComplete": false
+  "description": "edited desciption"
 }
 
 ###
@@ -64,7 +63,7 @@ POST {{AdsApi_HostAddress}}/ads/
 Content-Type: application/json
 {
   "seller": { "name": "google" },
-  "category": { "name": "food" },
+  "category": { "name": "trucks" },
   "description": "w desc",
   "price": 999
 }

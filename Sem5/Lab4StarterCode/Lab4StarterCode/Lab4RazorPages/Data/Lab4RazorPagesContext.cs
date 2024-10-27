@@ -17,5 +17,16 @@ namespace Lab4RazorPages.Data
         public DbSet<Lab4RazorPages.Models.Product> Product { get; set; } = default!;
         public DbSet<Lab4RazorPages.Models.Category> Category { get; set; } = default!;
         public DbSet<Lab4RazorPages.Models.Supplier> Supplier { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Book>(entity =>
+            {
+
+            });
+        }
     }
+}
 }

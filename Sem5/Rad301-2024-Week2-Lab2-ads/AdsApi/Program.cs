@@ -92,6 +92,7 @@ static async Task<IResult> UpdateAd(int id, Ad newAd, AdsDb db)
     ad.Category = newAd.Category;
     ad.Description = newAd.Description;
     ad.Price = newAd.Price;
+    ad.Type = newAd.Type;
 
     await db.SaveChangesAsync();
 

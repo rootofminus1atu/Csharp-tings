@@ -28,7 +28,10 @@ namespace Lab4Part3.Pages.Suppliers
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier.FirstOrDefaultAsync(m => m.SupplierID == id);
+            var supplier = await _context.Supplier
+                .Include(s => s.Products)
+                .FirstOrDefaultAsync(m => m.SupplierID == id);
+
             if (supplier == null)
             {
                 return NotFound();

@@ -54,6 +54,21 @@ namespace ConsoleApp1
                                   CategoryDescription = c.Description
                               };
 
+            var h = db.Products
+                .Join(
+                    db.Categories,
+                    p => p.CategoryId,
+                    c => c.Id,
+                    (p, c) => new { p, c })
+                .Where(pc => pc.c.Description == "Hardware")
+                .Select(pc =>
+                new {
+                    pc.p.Id,
+                    pc.p.Description,
+                    pc.p.QuantityInStock,
+                    pc.p.UnitPrice,
+                    CategoryDescription = pc.c.Description
+                });
 
             var sevenB = sevenBQuery.ToList();
             // Console.WriteLine(sevenB.ToDebugString());
