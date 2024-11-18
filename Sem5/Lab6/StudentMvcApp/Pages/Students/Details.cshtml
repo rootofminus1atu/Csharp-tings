@@ -42,6 +42,11 @@
             @Html.DisplayFor(model => model.Student.Course.Department)
         </dd>
     </dl>
+    <h4>Enrolled in:</h4>
+    <p>
+        <a asp-page="../Courses/Details" asp-route-id="@Model.Student.Course.Id">@Model.Student.Course.Name</a>
+    </p>
+        
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Student.Id">Edit</a> |

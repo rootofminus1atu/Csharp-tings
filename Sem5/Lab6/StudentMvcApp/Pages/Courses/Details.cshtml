@@ -30,6 +30,14 @@
             @Html.DisplayFor(model => model.Course.Lecturer)
         </dd>
     </dl>
+    <h4>Students in Course</h4>
+    <ul>
+        @foreach (var student in Model.Course.Students)
+        {
+            <li>
+                <a asp-page="../Students/Details" asp-route-id="@student.Id">@student.Name</a>
+            </li>
+        }</ul>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Course.Id">Edit</a> |

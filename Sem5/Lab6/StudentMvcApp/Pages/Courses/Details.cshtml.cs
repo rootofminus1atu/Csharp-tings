@@ -28,7 +28,7 @@ namespace StudentMvcApp.Pages.Courses
                 return NotFound();
             }
 
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.Id == id);
+            var course = await _context.Courses.Include(c => c.Students).FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
                 return NotFound();
