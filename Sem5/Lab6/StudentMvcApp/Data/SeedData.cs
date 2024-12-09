@@ -7,8 +7,7 @@ namespace StudentMvcApp.Data
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new StudentContext(
-                serviceProvider.GetRequiredService<DbContextOptions<StudentContext>>()))
+            using (var context = new StudentContext(serviceProvider.GetRequiredService<DbContextOptions<StudentContext>>()))
             {
                 if (context == null || context.Courses == null)
                 {

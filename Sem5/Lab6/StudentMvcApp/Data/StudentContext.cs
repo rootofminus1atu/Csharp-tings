@@ -9,8 +9,7 @@ namespace StudentMvcApp.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
-        public StudentContext(DbContextOptions<StudentContext> options)
-            : base(options)
+        public StudentContext(DbContextOptions<StudentContext> options) : base(options)
         {
 
         }
