@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Lab7Again.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Lab7Again.Data
 {
-    public class Lab7AgainContext : DbContext
+    public class Lab7AgainContext : IdentityDbContext
     {
         public Lab7AgainContext (DbContextOptions<Lab7AgainContext> options)
             : base(options)
