@@ -20,8 +20,4 @@
     <ProjectReference Include="..\StudentClassLibrary\StudentClassLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\h\" />
-  </ItemGroup>
-
 </Project>

@@ -7,7 +7,7 @@ using Lab7Again.Authorization;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
+builder.Services.AddDefaultIdentity<ApplicationUser>(
     options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<Lab7AgainContext>();
@@ -38,11 +38,12 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    Console.WriteLine("h =====================================");
     var services = scope.ServiceProvider;
-
+    Console.WriteLine("bext");
     var context = services.GetRequiredService<Lab7AgainContext>();
     context.Database.Migrate();
-
+    Console.WriteLine("after");
     var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
     Console.WriteLine(testUserPw);  // admin 123
 

@@ -14,27 +14,31 @@ namespace PetsAndVetsLibrary
         public DbSet<Vet> Vets { get; set; }
         public DbSet<VetVisit> VetVisits { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PetsAndVetsContext() : this(GetOptions())
         {
-            optionsBuilder.UseSqlite("Data Source=petsandvets.db");
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Pet>()
-        //        .HasOne(p => p.Owner)
-        //        .WithMany(o => o.Pets)
-        //        .HasForeignKey(p => p.OwnerId);
+        public PetsAndVetsContext(DbContextOptions<PetsAndVetsContext> options) : base(options)
+        {
+        }
 
-        //    modelBuilder.Entity<VetVisit>()
-        //        .HasOne(vv => vv.Pet)
-        //        .WithMany(p => p.VetVisits)
-        //        .HasForeignKey(vv => vv.PetId);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite($"Data Source={GetDbPath()}");
+        }
 
-        //    modelBuilder.Entity<VetVisit>()
-        //        .HasOne(vv => vv.Vet)
-        //        .WithMany(v => v.VetVisits)
-        //        .HasForeignKey(vv => vv.VetId);
-        //}
+        private static DbContextOptions<PetsAndVetsContext> GetOptions()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<PetsAndVetsContext>();
+            optionsBuilder.UseSqlite($"Data Source={GetDbPath()}");
+            return optionsBuilder.Options;
+        }
+
+        public static string GetDbPath()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string solutionDirectory = Directory.GetParent(baseDirectory).Parent.Parent.Parent.Parent.FullName;
+            return Path.Combine(solutionDirectory, "petsandvets.db");
+        }
     }
 }

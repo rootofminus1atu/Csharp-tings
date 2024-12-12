@@ -16,9 +16,11 @@ namespace Lab7Again.Pages.Contacts
             IAuthorizationService authorizationService,
             UserManager<IdentityUser> userManager) : base()
         {
+            Console.WriteLine("before cons");
             Context = context;
             UserManager = userManager;
             AuthorizationService = authorizationService;
+            Console.WriteLine("after cons");
         }
     }
 }

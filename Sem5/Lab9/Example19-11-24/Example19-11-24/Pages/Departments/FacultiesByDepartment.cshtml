@@ -1,0 +1,58 @@
+﻿@page
+@model Example19_11_24.Pages.Departments.FacultiesByDepartmentModel
+
+@{
+    ViewData["Title"] = "FacultiesByDepartment";
+}
+
+<h1>FacultiesByDepartment</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+@foreach (var item in Model.Department)
+{
+    <h1>@item.Name</h1>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department[0].Faculty.FirstOrDefault().FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department[0].Faculty.FirstOrDefault().LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department[0].Faculty.FirstOrDefault().DateOfBirth)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department[0].Faculty.FirstOrDefault().Email)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var faculty in item.Faculty)
+                {
+                    <tr>
+                        <td>
+                            @faculty.FirstName
+                        </td>
+                        <td>
+                            @faculty.LastName
+                        </td>
+                        <td>
+                            @faculty.DateOfBirth
+                        </td>
+                        <td>
+                            @faculty.Email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+}

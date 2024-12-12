@@ -7,6 +7,8 @@ namespace Lab7Again.Data
 {
     public static class SeedData
     {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        #region snippet_Initialize
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
             using (var context = new Lab7AgainContext(
@@ -16,8 +18,8 @@ namespace Lab7Again.Data
                 // Password is set with the following:
                 // dotnet user-secrets set SeedUserPW <pw>
                 // The admin user can do anything
-                Console.WriteLine("====================================");
-                Console.WriteLine(testUserPw);
+
+                // Admin123Admin1984!
 
                 var adminID = await EnsureUser(serviceProvider, testUserPw, "admin@contoso.com");
                 await EnsureRole(serviceProvider, adminID, Constants.ContactAdministratorsRole);
@@ -26,12 +28,12 @@ namespace Lab7Again.Data
                 var managerID = await EnsureUser(serviceProvider, testUserPw, "manager@contoso.com");
                 await EnsureRole(serviceProvider, managerID, Constants.ContactManagersRole);
 
-                SeedDB(context, testUserPw);
+                SeedDB(context, adminID);
             }
         }
 
         private static async Task<string> EnsureUser(IServiceProvider serviceProvider,
-                                            string testUserPw, string UserName)
+                                                    string testUserPw, string UserName)
         {
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
 
@@ -72,10 +74,10 @@ namespace Lab7Again.Data
 
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
 
-            //if (userManager == null)
-            //{
-            //    throw new Exception("userManager is null");
-            //}
+            if (userManager == null)
+            {
+                throw new Exception("userManager is null");
+            }
 
             var user = await userManager.FindByIdAsync(uid);
 
@@ -88,7 +90,8 @@ namespace Lab7Again.Data
 
             return IR;
         }
-
+        #endregion
+        #region snippet1
         public static void SeedDB(Lab7AgainContext context, string adminID)
         {
             if (context.Contact.Any())
@@ -97,6 +100,7 @@ namespace Lab7Again.Data
             }
 
             context.Contact.AddRange(
+            #region snippet_Contact
                 new Contact
                 {
                     Name = "Debra Garcia",
@@ -108,6 +112,8 @@ namespace Lab7Again.Data
                     Status = ContactStatus.Approved,
                     OwnerID = adminID
                 },
+            #endregion
+            #endregion
                 new Contact
                 {
                     Name = "Thorsten Weinrich",
@@ -154,6 +160,5 @@ namespace Lab7Again.Data
              );
             context.SaveChanges();
         }
-
     }
 }

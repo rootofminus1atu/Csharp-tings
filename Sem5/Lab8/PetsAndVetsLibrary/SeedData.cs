@@ -51,7 +51,7 @@ namespace PetsAndVetsLibrary
             var vetVisits = new List<VetVisit>
             {
                 new VetVisit { Id = 1, VisitDate = DateTime.Now.AddDays(-7), PetId = 1, VetId = 1 },
-                new VetVisit { Id = 2, VisitDate = DateTime.Now.AddDays(-14), PetId = 2, VetId = 2 },
+                new VetVisit { Id = 2, VisitDate = DateTime.Now.AddDays(-14), PetId = 1, VetId = 2 },
                 new VetVisit { Id = 3, VisitDate = DateTime.Now.AddDays(-21), PetId = 3, VetId = 3 },
                 new VetVisit { Id = 4, VisitDate = DateTime.Now.AddDays(-28), PetId = 4, VetId = 1 },
                 new VetVisit { Id = 5, VisitDate = DateTime.Now.AddDays(-35), PetId = 5, VetId = 2 }

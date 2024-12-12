@@ -1,0 +1,45 @@
+﻿@page
+@model PetsAndVetsWebApp.Pages.VetVisits.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>VetVisit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VetVisit.Id" />
+            <div class="form-group">
+                <label asp-for="VetVisit.VisitDate" class="control-label"></label>
+                <input asp-for="VetVisit.VisitDate" class="form-control" />
+                <span asp-validation-for="VetVisit.VisitDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VetVisit.PetId" class="control-label"></label>
+                <select asp-for="VetVisit.PetId" class="form-control" asp-items="ViewBag.PetId"></select>
+                <span asp-validation-for="VetVisit.PetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VetVisit.VetId" class="control-label"></label>
+                <select asp-for="VetVisit.VetId" class="form-control" asp-items="ViewBag.VetId"></select>
+                <span asp-validation-for="VetVisit.VetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

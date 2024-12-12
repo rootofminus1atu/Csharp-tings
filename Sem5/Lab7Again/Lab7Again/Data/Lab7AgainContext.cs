@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Lab7Again.Data
 {
-    public class Lab7AgainContext : IdentityDbContext
+    public class Lab7AgainContext : IdentityDbContext<ApplicationUser>
     {
         public Lab7AgainContext (DbContextOptions<Lab7AgainContext> options)
             : base(options)

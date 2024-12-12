@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsAndVetsLibrary", "PetsAndVetsLibrary\PetsAndVetsLibrary.csproj", "{3F83C242-B975-4975-9501-02C6DFF6EA98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsAndVetsLibrary", "PetsAndVetsLibrary\PetsAndVetsLibrary.csproj", "{3F83C242-B975-4975-9501-02C6DFF6EA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsAndVetsConsoleApp", "PetsAndVetsConsoleApp\PetsAndVetsConsoleApp.csproj", "{D26D1F6D-D8D4-454A-AC62-724055584268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetsAndVetsConsoleApp", "PetsAndVetsConsoleApp\PetsAndVetsConsoleApp.csproj", "{D26D1F6D-D8D4-454A-AC62-724055584268}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetsAndVetsWebApp", "PetsAndVetsWebApp\PetsAndVetsWebApp.csproj", "{E4E9BC18-F264-4439-A7ED-7817BE8C525E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D26D1F6D-D8D4-454A-AC62-724055584268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D26D1F6D-D8D4-454A-AC62-724055584268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D26D1F6D-D8D4-454A-AC62-724055584268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4E9BC18-F264-4439-A7ED-7817BE8C525E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4E9BC18-F264-4439-A7ED-7817BE8C525E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4E9BC18-F264-4439-A7ED-7817BE8C525E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4E9BC18-F264-4439-A7ED-7817BE8C525E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

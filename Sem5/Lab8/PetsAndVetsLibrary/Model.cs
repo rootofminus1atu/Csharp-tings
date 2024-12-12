@@ -1,4 +1,7 @@
-﻿namespace PetsAndVetsLibrary
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+
+namespace PetsAndVetsLibrary
 {
     public class Pet
     {
@@ -35,4 +38,17 @@
         
     }
 
+    public static class DebugExtensions
+    {
+        public static string ToDebugString(this object obj)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                ReferenceHandler = ReferenceHandler.IgnoreCycles
+            };
+            
+            return JsonSerializer.Serialize(obj, options);
+        }
+    }
 }
