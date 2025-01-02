@@ -27,9 +27,6 @@ static void SeedDb()
 
 SeedDb();
 
-// 5 linq queries
-
-
 
 using (var context = new PetsAndVetsContext())
 {
@@ -70,11 +67,11 @@ using (var context = new PetsAndVetsContext())
 {
     var l4 = context.Pets
         .Include(p => p.VetVisits)
-        .Select(pet => new
+        .Select(p => new
         {
-            PetName = pet.Name,
-            PetSpecies = pet.Species,
-            VisitCount = pet.VetVisits.Count()
+            PetName = p.Name,
+            PetSpecies = p.Species,
+            VisitCount = p.VetVisits.Count()
         })
         .ToList();
 
@@ -84,12 +81,12 @@ using (var context = new PetsAndVetsContext())
 using (var context = new PetsAndVetsContext())
 {
     var l5 = context.Vets
-        .Include(vet => vet.VetVisits)
+        .Include(v => v.VetVisits)
         .ThenInclude(vv => vv.Pet)
-        .Select(vet => new
+        .Select(v => new
         {
-            VetName = vet.Name,
-            TreatedPets = vet.VetVisits.Select(vv => vv.Pet.Name).ToList()
+            VetName = v.Name,
+            TreatedPets = v.VetVisits.Select(vv => vv.Pet.Name).ToList()
         })
         .ToList();
 
